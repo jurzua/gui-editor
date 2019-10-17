@@ -1,5 +1,7 @@
 package cl.talca.guieditor;
 
+import cl.talca.guieditor.actions.ListenerCreateCircle;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,13 +29,16 @@ public class MainFrame extends JFrame {
 
     }
 
+
+
     private JPanel initActionPanel() {
         JPanel panel = new JPanel();
-        JButton send = new JButton("Send");
+        JButton buttonCreateCircle = new JButton("Create circle");
         JButton reset = new JButton("Reset");
-        panel.add(send);
+        panel.add(buttonCreateCircle);
         panel.add(reset);
         panel.setBackground(Color.BLUE);
+        buttonCreateCircle.addActionListener(new ListenerCreateCircle(this.shapeArea));
         return panel;
     }
 
