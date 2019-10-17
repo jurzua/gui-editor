@@ -8,8 +8,10 @@ import java.awt.geom.Ellipse2D;
 public class Circle {
 
     int x, y;
+    Color color;
 
-    public Circle(int x, int y) {
+    public Circle(int x, int y, Color color) {
+        this.color = color;
         this.x = x;
         this.y = y;
     }
@@ -18,7 +20,7 @@ public class Circle {
         Graphics2D g2d = (Graphics2D) g;
         Ellipse2D.Double circle = new Ellipse2D.Double(x, y, 100, 100);
 
-        g2d.setColor(Color.GRAY);
+        g2d.setColor(this.color);
         g2d.fill(circle);
     }
 

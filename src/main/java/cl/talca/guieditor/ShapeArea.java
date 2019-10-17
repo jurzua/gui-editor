@@ -17,8 +17,9 @@ public class ShapeArea extends JPanel {
         super.paintComponent(g);
         //add my shapes
 
+        Color color = Color.CYAN;
 
-        Circle circle = new Circle(10, 20);
+        Circle circle = new Circle(10, 20, color);
         circle.draw(g);
     }
 
