@@ -9,11 +9,14 @@ public class ListenerCreateCircle implements ActionListener {
 
     private ShapeArea shapeArea;
 
+    public ListenerCreateCircle (ShapeArea shapeArea){
+        this.shapeArea = shapeArea;
+    }
+
+    @Override
     public void actionPerformed(ActionEvent actionEvent) {
         this.shapeArea.createCircle();
     }
 
-    public ListenerCreateCircle (ShapeArea shapeArea){
-        this.shapeArea = shapeArea;
-    }
+
 }

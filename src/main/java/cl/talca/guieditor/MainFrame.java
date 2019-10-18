@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
 
         this.setTitle(title);
         this.setVisible(true);
-        this.setSize(1000, 620);
+        this.setSize(1000, 600);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.shapeArea = new ShapeArea();
