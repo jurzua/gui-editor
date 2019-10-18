@@ -1,6 +1,7 @@
 package cl.talca.videogame;
 
 import cl.talca.videogame.component.Aircraft;
+import cl.talca.videogame.component.AircraftControl;
 import cl.talca.videogame.component.Asteroid;
 import cl.talca.videogame.component.Shape;
 
@@ -16,7 +17,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePanel extends JPanel implements ActionListener, KeyListener {
+public class GamePanel extends JPanel implements ActionListener {
 
     static int SCREEN_WIDE = 600;
     static int SCREEN_HIGH = 400;
@@ -35,7 +36,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
         setBackground(Color.LIGHT_GRAY);
 
         shapeList.add(new Aircraft(SCREEN_HIGH -10));
-        this.addKeyListener(this);
     }
 
     public void paintComponent(Graphics g) {
@@ -63,19 +63,5 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,3)));
         }
         this.repaint();
-    }
-
-    public void keyTyped(KeyEvent keyEvent) {
-        System.out.println(String.format("AAAAcode=%s -- char=%s", keyEvent.getKeyCode(), keyEvent.getKeyChar()));
-    }
-
-    public void keyPressed(KeyEvent keyEvent) {
-        System.out.println(String.format("BBBcode=%s -- char=%s", keyEvent.getKeyCode(), keyEvent.getKeyChar()));
-
-    }
-
-    public void keyReleased(KeyEvent keyEvent) {
-        System.out.println(String.format("CCCCcode=%s -- char=%s", keyEvent.getKeyCode(), keyEvent.getKeyChar()));
-
     }
 }

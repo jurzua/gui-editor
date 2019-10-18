@@ -24,4 +24,12 @@ public class Aircraft implements Shape{
     public Boolean isVisible() {
         return true;
     }
+
+    public void moveLeft() {
+        this.x--;
+    }
+
+    public void moveRight() {
+        this.x++;
+    }
 }
