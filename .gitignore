@@ -1,3 +1,13 @@
+### IDE ###
+.idea
+.settings
+.classpath
+.project
+target/
+*.iml
+*.ipr
+*.iws
+
 # Compiled class file
 *.class
 
