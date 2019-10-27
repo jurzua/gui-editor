@@ -5,6 +5,15 @@ import java.awt.event.KeyListener;
 
 public class AircraftControl implements KeyListener {
 
+
+    private Aircraft aircraft;
+
+    //Este método es un nuevo constructor que tiene como parametro una instancia de la clase aircraft
+    //
+    public AircraftControl(Aircraft aircraft){
+        this.aircraft = aircraft;
+    }
+
     public void keyTyped(KeyEvent keyEvent) {
     }
 
@@ -13,11 +22,10 @@ public class AircraftControl implements KeyListener {
 
     public void keyReleased(KeyEvent keyEvent) {
         if(keyEvent.getKeyCode() == 37) {
-            System.out.println("Move left");
-            
+            this.aircraft.moveLeft();
         }
         if(keyEvent.getKeyCode() == 39) {
-            System.out.println("Move right");
+            this.aircraft.moveRight();
         }
     }
 }

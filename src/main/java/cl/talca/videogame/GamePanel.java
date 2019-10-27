@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static int SCREEN_HIGH = 400;
 
     List<Shape> shapeList = new ArrayList<Shape>();
+    Aircraft aircraft;
 
     private Timer timer = new Timer(5, this);
     double x = 0, y = 0, vx = 2, vy = 2;
@@ -34,8 +35,8 @@ public class GamePanel extends JPanel implements ActionListener {
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,3)));
         }
         setBackground(Color.LIGHT_GRAY);
-
-        shapeList.add(new Aircraft(SCREEN_HIGH -10));
+        this.aircraft = new Aircraft(SCREEN_HIGH -10);
+        shapeList.add(this.aircraft);
     }
 
     public void paintComponent(Graphics g) {
@@ -57,11 +58,15 @@ public class GamePanel extends JPanel implements ActionListener {
                 listToDelete.add(shape);
             }
         }
-
         for(Shape shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,3)));
         }
         this.repaint();
     }
+
+    public Aircraft getAircraft(){
+        return this.aircraft;
+    }
+
 }

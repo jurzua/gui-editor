@@ -15,6 +15,7 @@ public class Aircraft implements Shape{
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.BLACK);
         g.drawRect(x, y, width, height);
+        g2d.fillRect(x, y, width, height);
     }
 
     public void updatePosition() {
