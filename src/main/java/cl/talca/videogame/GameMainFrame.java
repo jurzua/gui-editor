@@ -1,12 +1,10 @@
 package cl.talca.videogame;
 
-import cl.talca.guieditor.ShapeArea;
 import cl.talca.videogame.component.Aircraft;
-import cl.talca.videogame.component.AircraftControl;
+import cl.talca.videogame.component.GameKeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-import java.awt.BorderLayout;
 
 public class GameMainFrame extends JFrame {
 
@@ -21,10 +19,9 @@ public class GameMainFrame extends JFrame {
 
 
         GamePanel myGamePanel = new GamePanel();
-        Aircraft avion = myGamePanel.getAircraft();
         this.getContentPane().add(myGamePanel);
 
-        this.addKeyListener(new AircraftControl(avion));
+        this.addKeyListener(new GameKeyListener(myGamePanel));
 
 
     }

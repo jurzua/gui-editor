@@ -1,17 +1,18 @@
 package cl.talca.videogame.component;
 
+import cl.talca.videogame.GamePanel;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class AircraftControl implements KeyListener {
+public class GameKeyListener implements KeyListener {
 
-
-    private Aircraft aircraft;
+    private GamePanel gamePanel;
 
     //Este método es un nuevo constructor que tiene como parametro una instancia de la clase aircraft
     //
-    public AircraftControl(Aircraft aircraft){
-        this.aircraft = aircraft;
+    public GameKeyListener(GamePanel gamePanel){
+        this.gamePanel = gamePanel;
     }
 
     public void keyTyped(KeyEvent keyEvent) {
@@ -21,11 +22,15 @@ public class AircraftControl implements KeyListener {
     }
 
     public void keyReleased(KeyEvent keyEvent) {
+        System.out.println(keyEvent.getKeyCode());
         if(keyEvent.getKeyCode() == 37) {
-            this.aircraft.moveLeft();
+            this.gamePanel.getAircraft().moveLeft();
         }
         if(keyEvent.getKeyCode() == 39) {
-            this.aircraft.moveRight();
+            this.gamePanel.getAircraft().moveRight();
+        }
+        if(keyEvent.getKeyCode() == 38){
+            this.gamePanel.createBullet();
         }
     }
 }

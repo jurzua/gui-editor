@@ -10,11 +10,11 @@ import java.awt.geom.Ellipse2D;
 
 public class Asteroid implements Shape {
 
-    double x, y;
-    double speedY;
+    int x, y;
+    int speedY;
     int screenHigh;
 
-    public Asteroid(int screenWide, int screenHigh, double speedY) {
+    public Asteroid(int screenWide, int screenHigh, int speedY) {
         this.x = MathHelper.randomNumber(0,screenWide);
         this.y = 0;
         this.screenHigh = screenHigh;
