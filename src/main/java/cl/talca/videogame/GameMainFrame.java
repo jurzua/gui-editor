@@ -17,7 +17,8 @@ public class GameMainFrame extends JFrame {
         this.setSize(1000, 600);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
+        //print number of asteroid delete in the panel
+        //GamePanel should have counter for the amount of astereoids destroyed
         GamePanel myGamePanel = new GamePanel();
         this.getContentPane().add(myGamePanel);
 

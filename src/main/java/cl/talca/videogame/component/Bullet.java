@@ -7,6 +7,7 @@ public class Bullet implements Shape{
 
     int x, y;
     int speedY;
+    boolean alive = true;
 
     public Bullet (int x,int y){
         this.x = x;
@@ -22,7 +23,13 @@ public class Bullet implements Shape{
     }
 
     public boolean destroyAsteroid(Asteroid asteroid) {
-        //todo
+        // if true, both shapes are destroyed
+
+        if(this.x >= asteroid.x && this.x <= asteroid.x + asteroid.width &&
+                this.y >= asteroid.y && this.y <= asteroid.y + asteroid.height){
+            this.alive = false;
+            return true;
+        }
         return false;
     }
 
@@ -31,7 +38,7 @@ public class Bullet implements Shape{
     }
 
     public Boolean isVisible() {
-        return this.y > 0;
+        return this.y > 0 && this.alive;
     }
 
 

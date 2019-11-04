@@ -13,6 +13,11 @@ public class Asteroid implements Shape {
     int x, y;
     int speedY;
     int screenHigh;
+    boolean inDestruction = false;
+    int destructionIterations = 1;
+    int MAX_DESTRUCTION_ITERATIONS = 50;
+    public int width = 40;
+    public int height = 40;
 
     public Asteroid(int screenWide, int screenHigh, int speedY) {
         this.x = MathHelper.randomNumber(0,screenWide);
@@ -23,17 +28,44 @@ public class Asteroid implements Shape {
 
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        Ellipse2D.Double circle = new Ellipse2D.Double(x, y, 40, 40);
+        if(this.inDestruction){
+            this.drawInDestruction(g2d);
+        } else {
+            this.drawNormal(g2d);
+        }
+    }
+
+    private void drawInDestruction(Graphics2D g2d){
+        Ellipse2D.Double circle1 = new Ellipse2D.Double(x, y, 10 + this.destructionIterations, 10 + this.destructionIterations);
+        g2d.setColor(Color.ORANGE);
+        g2d.fill(circle1);
+
+        Ellipse2D.Double circle2 = new Ellipse2D.Double(x, y, 5 + this.destructionIterations, 5 + this.destructionIterations);
+        g2d.setColor(Color.YELLOW);
+        g2d.fill(circle2);
+    }
+
+    private void drawNormal(Graphics2D g2d){
+        Ellipse2D.Double circle = new Ellipse2D.Double(x, y, this.width, this.height);
         g2d.setColor(Color.BLUE);
         g2d.fill(circle);
     }
 
+    public void destroyed() {
+        this.inDestruction = true;
+    }
+
     public void updatePosition() {
-        this.y += speedY;
+        if(!this.inDestruction){
+            this.y += speedY;
+        } else {
+            this.destructionIterations++;
+        }
+
     }
 
     public Boolean isVisible(){
-        return this.y <= screenHigh;
+        return this.y <= screenHigh && this.destructionIterations <= MAX_DESTRUCTION_ITERATIONS;
     }
 
 }

@@ -19,23 +19,21 @@ public class Aircraft implements Shape{
     }
 
     public void updatePosition() {
-
     }
 
     public Point getPosition(){
         return new Point(this.x , this.y);
     }
 
-
     public Boolean isVisible() {
         return true;
     }
 
     public void moveLeft() {
-        this.x-=4;
+        this.x-=10;
     }
 
     public void moveRight() {
-        this.x+=4;
+        this.x+=10;
     }
 }

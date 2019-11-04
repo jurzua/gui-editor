@@ -25,12 +25,12 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private Timer timer = new Timer(5, this);
     double x = 0, y = 0, vx = 2, vy = 2;
-    int asteroid = 10;
+    int asteroid = 8;
 
     public GamePanel() {
 
         for(int index=0;index<asteroid;index++){
-            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,3)));
+            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2)));
         }
         setBackground(Color.LIGHT_GRAY);
         this.aircraft = new Aircraft(SCREEN_HIGH -10);
@@ -54,7 +54,17 @@ public class GamePanel extends JPanel implements ActionListener {
         this.timer.start();
     }
 
+    //call with timer
     public void actionPerformed(ActionEvent e) {
+
+        for(Bullet bullet : getBullets()){
+            //each bullet compare with all asteroid's position
+            for(Asteroid asteroid : getAsteroids()){
+                if(bullet.destroyAsteroid(asteroid)){
+                    asteroid.destroyed();
+                }
+            }
+        }
 
         List<Shape> listToDelete = new ArrayList<Shape>();
         for(Shape shape : shapeList) {
@@ -66,9 +76,27 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         for(Shape shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
-            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,3)));
+            if(shapeToDelete instanceof Asteroid){
+                shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2)));
+            }
         }
+
         this.repaint();
+        this.printState();
+    }
+
+    private void printState() {
+        System.out.println(String.format("Asteroids = %d, Bullets = %d", this.getAsteroids().size(), this.getBullets().size()));
+    }
+
+    private List<Asteroid> getAsteroids(){
+        List<Asteroid> list = new ArrayList<Asteroid>();
+        for(Shape shape : this.shapeList){
+            if(shape instanceof Asteroid){
+                list.add((Asteroid) shape);
+            }
+        }
+        return list;
     }
 
     private List<Bullet> getBullets() {
