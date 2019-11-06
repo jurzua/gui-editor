@@ -24,6 +24,7 @@ public class GameKeyListener implements KeyListener {
     public void keyReleased(KeyEvent keyEvent) {
         System.out.println(keyEvent.getKeyCode());
         if(keyEvent.getKeyCode() == 37) {
+            //while apretado
             this.gamePanel.getAircraft().moveLeft();
         }
         if(keyEvent.getKeyCode() == 39) {
