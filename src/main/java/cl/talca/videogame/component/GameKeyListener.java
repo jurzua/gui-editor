@@ -2,6 +2,7 @@ package cl.talca.videogame.component;
 
 import cl.talca.videogame.GamePanel;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -19,10 +20,6 @@ public class GameKeyListener implements KeyListener {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-    }
-
-    public void keyReleased(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getKeyCode());
         if(keyEvent.getKeyCode() == 37) {
             //while apretado
             this.gamePanel.getAircraft().moveLeft();
@@ -33,5 +30,8 @@ public class GameKeyListener implements KeyListener {
         if(keyEvent.getKeyCode() == 38){
             this.gamePanel.createBullet();
         }
+    }
+
+    public void keyReleased(KeyEvent keyEvent) {
     }
 }

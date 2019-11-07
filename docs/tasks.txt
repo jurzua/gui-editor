@@ -1,0 +1,14 @@
+1. Asteroids destroys aircraft, if there is a collision
+    if there is collision:
+    a. there is explosion and the asteroid disappears
+    b. when the explision finished, there is no more aircraft
+    c. There is a collision if there is overlapping between the area of the asteroid and the area of the aircraft
+
+Aircraft.explosion
+Asteroid.disappears
+
+2. creates a panel, which shows statistics. Statistics are composed of:
+    a. Number of asteroids alive
+    b. Number of asteroids destroyed
+    c. Number of bullets thrown
+
