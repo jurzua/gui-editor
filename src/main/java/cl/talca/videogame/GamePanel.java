@@ -62,7 +62,16 @@ public class GamePanel extends JPanel implements ActionListener {
             for(Asteroid asteroid : getAsteroids()){
                 if(bullet.destroyAsteroid(asteroid)){
                     asteroid.destroyed();
+                    break;
                 }
+            }
+        }
+
+        //comparison of the aircraft with each asteroid
+        for(Asteroid asteroid : getAsteroids()){
+            if(aircraft.destroyAsteroid(asteroid)){
+                asteroid.destroyed();
+                break;
             }
         }
 

@@ -8,6 +8,7 @@ public class Bullet implements Shape{
     int x, y;
     int speedY;
     boolean alive = true;
+    boolean aircraftSafe = true;
 
     public Bullet (int x,int y){
         this.x = x;
@@ -32,6 +33,10 @@ public class Bullet implements Shape{
         }
         return false;
     }
+
+    //public boolean aircraftSafe(Aircraft aircraft){
+        //if aircraftSafe is true, the bullet is visible. Else, the bullet isn't visible.
+    //}
 
     public void updatePosition() {
         this.y -= speedY;
