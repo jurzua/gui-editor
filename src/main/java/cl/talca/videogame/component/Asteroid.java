@@ -18,6 +18,9 @@ public class Asteroid implements Shape {
     int MAX_DESTRUCTION_ITERATIONS = 50;
     public int width = 40;
     public int height = 40;
+    int destroyCount = 0;
+    //int radius = this.height/2;
+    //double area =  Math.PI * Math.pow(radius,2);
 
     public Asteroid(int screenWide, int screenHigh, int speedY) {
         this.x = MathHelper.randomNumber(0,screenWide);
@@ -58,10 +61,10 @@ public class Asteroid implements Shape {
     public void updatePosition() {
         if(!this.inDestruction){
             this.y += speedY;
+            this.destroyCount += 1;
         } else {
             this.destructionIterations++;
         }
-
     }
 
     public Boolean isVisible(){

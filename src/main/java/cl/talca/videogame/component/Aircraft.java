@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 public class Aircraft implements Shape{
     int x=400, y, width=30,height=30;
     boolean safe = true;
+    int area = width * height;
 
     public Aircraft(int positionY){
         this.y = positionY;
@@ -19,12 +20,13 @@ public class Aircraft implements Shape{
     }
 
     public void updatePosition() {
+
     }
 
     public boolean destroyAsteroid(Asteroid asteroid) {
+        //if(this.x >= asteroid.area && this.x <= asteroid.area && this.y >= asteroid.area && this.y <= asteroid.area){
         // if is true, both shapes are destroyed
-
-        if(this.x >= asteroid.x && this.x <= asteroid.x + asteroid.width &&
+        if( this.x >= asteroid.x && this.x <= asteroid.x + asteroid.width &&
                 this.y >= asteroid.y && this.y <= asteroid.y + asteroid.height){
             this.safe = false;
             //this solution is only esthetic :P

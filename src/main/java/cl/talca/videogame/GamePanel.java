@@ -26,11 +26,16 @@ public class GamePanel extends JPanel implements ActionListener {
     private Timer timer = new Timer(5, this);
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
+    //int asteroidDestroyed = 0;
+    //int bulletCount = 0;
+    //int asteroidCount = 0;
 
     public GamePanel() {
 
         for(int index=0;index<asteroid;index++){
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2)));
+            //asteroidCount += 1;
+            //System.out.println("Asteroid = " +asteroidCount);
         }
         setBackground(Color.LIGHT_GRAY);
         this.aircraft = new Aircraft(SCREEN_HIGH -10);
@@ -42,12 +47,13 @@ public class GamePanel extends JPanel implements ActionListener {
         Point initialPosition = this.aircraft.getPosition();
         Bullet myBullet = new Bullet(initialPosition.x, initialPosition.y);
         shapeList.add(myBullet);
+        //bulletCount +=1;
+        //System.out.println("Bullet Count is equal to: " + bulletCount);
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-
         for(Shape shape : shapeList) {
             shape.draw(g);
         }
@@ -62,6 +68,10 @@ public class GamePanel extends JPanel implements ActionListener {
             for(Asteroid asteroid : getAsteroids()){
                 if(bullet.destroyAsteroid(asteroid)){
                     asteroid.destroyed();
+                    //asteroidDestroyed += 1;
+                    //System.out.println("Asteroid destroyed = " +asteroidDestroyed);
+                    //asteroidCount -= 1;
+                    //System.out.println("Asteroid count: " +asteroidCount);
                     break;
                 }
             }
@@ -71,6 +81,9 @@ public class GamePanel extends JPanel implements ActionListener {
         for(Asteroid asteroid : getAsteroids()){
             if(aircraft.destroyAsteroid(asteroid)){
                 asteroid.destroyed();
+                //for(Bullet bullet : getBullets()){
+                //                    bullet.aircraftSafe(aircraft);
+                //                }
                 break;
             }
         }
@@ -87,9 +100,9 @@ public class GamePanel extends JPanel implements ActionListener {
             shapeList.remove(shapeToDelete);
             if(shapeToDelete instanceof Asteroid){
                 shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2)));
+                //asteroidCount += 1;
             }
         }
-
         this.repaint();
         this.printState();
     }

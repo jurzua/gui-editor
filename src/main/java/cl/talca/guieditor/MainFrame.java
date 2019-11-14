@@ -26,10 +26,7 @@ public class MainFrame extends JFrame {
         this.getContentPane().add(BorderLayout.NORTH, initActionPanel());
         this.getContentPane().add(BorderLayout.SOUTH, initInfoPanel());
         this.getContentPane().add(BorderLayout.CENTER, this.shapeArea);
-
     }
-
-
 
     private JPanel initActionPanel() {
         JPanel panel = new JPanel();
