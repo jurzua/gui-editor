@@ -7,6 +7,8 @@ public class Aircraft implements Shape{
     int x=400, y, width=30,height=30;
     boolean safe = true;
     int area = width * height;
+    int destructionIterations = 1;
+    int MAX_DESTRUCTION_ITERATIONS = 60;
 
     public Aircraft(int positionY){
         this.y = positionY;
@@ -14,24 +16,33 @@ public class Aircraft implements Shape{
 
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.BLACK);
-        g.drawRect(x, y, width, height);
-        g2d.fillRect(x, y, width, height);
+        if(this.safe == true){
+            g2d.setColor(Color.BLACK);
+            g.drawRect(x, y, width, height);
+            g2d.fillRect(x, y, width, height);
+        } else {
+            this.drawAircraftDestruction(g2d);
+        }
     }
+
+    private void drawAircraftDestruction(Graphics2D g2d){
+        Ellipse2D.Double circle1 = new Ellipse2D.Double(x, y, 30 + this.destructionIterations, 30 + this.destructionIterations);
+        g2d.setColor(Color.ORANGE);
+        g2d.fill(circle1);
+
+        Ellipse2D.Double circle2 = new Ellipse2D.Double(x, y, 15 + this.destructionIterations, 15 + this.destructionIterations);
+        g2d.setColor(Color.YELLOW);
+        g2d.fill(circle2);
+    }
+
+    //public void destroyed() {
+    //        this.safe = false;
+    //    }
 
     public void updatePosition() {
-
-    }
-
-    public boolean destroyAsteroid(Asteroid asteroid) {
-        //if(this.x >= asteroid.area && this.x <= asteroid.area && this.y >= asteroid.area && this.y <= asteroid.area){
-        // if is true, both shapes are destroyed
-        if( this.x >= asteroid.x && this.x <= asteroid.x + asteroid.width &&
-                this.y >= asteroid.y && this.y <= asteroid.y + asteroid.height){
-            this.safe = false;
-            return true;
+        if(this.safe != true){
+            this.destructionIterations++;
         }
-        return false;
     }
 
     public Point getPosition(){
@@ -39,7 +50,7 @@ public class Aircraft implements Shape{
     }
 
     public Boolean isVisible() {
-        return this.safe;
+        return this.safe || this.destructionIterations <= MAX_DESTRUCTION_ITERATIONS;
     }
 
     public void moveLeft() {

@@ -67,6 +67,17 @@ public class Asteroid implements Shape {
         }
     }
 
+    public boolean aircraftDestruction(Aircraft aircraft) {
+        //if(this.x >= asteroid.area && this.x <= asteroid.area && this.y >= asteroid.area && this.y <= asteroid.area){
+        // if is true, both shapes are destroyed
+        if( aircraft.x >= this.x && aircraft.x <= this.x + this.width &&
+                aircraft.y >= this.y && aircraft.y <= this.y + this.height){
+            aircraft.safe = false;
+            return true;
+        }
+        return false;
+    }
+
     public Boolean isVisible(){
         return this.y <= screenHigh && this.destructionIterations <= MAX_DESTRUCTION_ITERATIONS;
     }
