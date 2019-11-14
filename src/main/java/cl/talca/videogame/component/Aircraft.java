@@ -29,9 +29,6 @@ public class Aircraft implements Shape{
         if( this.x >= asteroid.x && this.x <= asteroid.x + asteroid.width &&
                 this.y >= asteroid.y && this.y <= asteroid.y + asteroid.height){
             this.safe = false;
-            //this solution is only esthetic :P
-            this.x = -1;
-            this.y = -1;
             return true;
         }
         return false;

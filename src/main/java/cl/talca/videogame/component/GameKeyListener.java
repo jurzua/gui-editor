@@ -20,16 +20,20 @@ public class GameKeyListener implements KeyListener {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        if(keyEvent.getKeyCode() == 37) {
-            //while apretado
-            this.gamePanel.getAircraft().moveLeft();
-        }
-        if(keyEvent.getKeyCode() == 39) {
-            this.gamePanel.getAircraft().moveRight();
-        }
-        if(keyEvent.getKeyCode() == 38){
-            this.gamePanel.createBullet();
-        }
+       try{
+           if(keyEvent.getKeyCode() == 37) {
+               //while apretado
+               this.gamePanel.aircraftMoveLeft();
+           }
+           if(keyEvent.getKeyCode() == 39) {
+               this.gamePanel.aircraftMoveRight();
+           }
+           if(keyEvent.getKeyCode() == 38){
+               this.gamePanel.createBullet();
+           }
+       }catch(Exception e) {
+           e.printStackTrace();
+       }
     }
 
     public void keyReleased(KeyEvent keyEvent) {
