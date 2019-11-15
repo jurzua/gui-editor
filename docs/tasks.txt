@@ -1,4 +1,4 @@
-1. Asteroids destroys aircraft, if there is a collision
+1. Asteroids destroys aircraft, if there is a collision -> complete
     if there is collision:
     a. there is explosion and the asteroid disappears
     b. when the explision finished, there is no more aircraft
