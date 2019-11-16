@@ -14,6 +14,18 @@ public class Aircraft implements Shape{
         this.y = positionY;
     }
 
+    public Point getP1(){
+        return new Point(this.x, this.y);
+    }
+
+    public Point getP2(){
+        return new Point(this.x + this.width, this.y + this.height);
+    }
+
+    public Rectangle getRectangle(){
+        return new Rectangle(this.x, this.y, this.width, this.height);
+    }
+
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         if(this.safe == true){
@@ -35,12 +47,8 @@ public class Aircraft implements Shape{
         g2d.fill(circle2);
     }
 
-    //public void destroyed() {
-    //        this.safe = false;
-    //    }
-
     public void updatePosition() {
-        if(this.safe != true){
+        if(this.safe == false){
             this.destructionIterations++;
         }
     }

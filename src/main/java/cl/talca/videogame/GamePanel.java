@@ -81,13 +81,12 @@ public class GamePanel extends JPanel implements ActionListener {
         //comparison of the aircraft with each asteroid
         if(this.aircraft != null) {
             for(Asteroid asteroid : getAsteroids()){
-                if(asteroid.aircraftDestruction(aircraft)){
+                if(asteroid.destroyAircraft(aircraft)){
                     //aircraft.destroyed();
                     break;
                 }
             }
         }
-
 
         List<Shape> listToDelete = new ArrayList<Shape>();
         for(Shape shape : shapeList) {
@@ -145,5 +144,6 @@ public class GamePanel extends JPanel implements ActionListener {
             this.aircraft.moveLeft();
         }
     }
+
 
 }

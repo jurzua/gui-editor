@@ -2,9 +2,7 @@ package cl.talca.videogame.component;
 
 import cl.talca.videogame.MathHelper;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 
@@ -27,6 +25,18 @@ public class Asteroid implements Shape {
         this.y = 0;
         this.screenHigh = screenHigh;
         this.speedY = speedY;
+    }
+
+    public Point getP1(){
+        return new Point(this.x, this.y);
+    }
+
+    public Point getP2(){
+        return new Point(this.x + this.width, this.y + this.height);
+    }
+
+    public Rectangle getRectangle(){
+        return new Rectangle(this.x, this.y, this.width, this.height);
     }
 
     public void draw(Graphics g) {
@@ -67,15 +77,21 @@ public class Asteroid implements Shape {
         }
     }
 
-    public boolean aircraftDestruction(Aircraft aircraft) {
+    public boolean destroyAircraft(Aircraft aircraft) {
         //if(this.x >= asteroid.area && this.x <= asteroid.area && this.y >= asteroid.area && this.y <= asteroid.area){
         // if is true, both shapes are destroyed
-        if( aircraft.x >= this.x && aircraft.x <= this.x + this.width &&
-                aircraft.y >= this.y && aircraft.y <= this.y + this.height){
+        if( doOverlap(this.getP1(), aircraft.getP1(), this.getP2(), aircraft.getP2())){
             aircraft.safe = false;
             return true;
         }
         return false;
+    }
+
+    static  boolean doOverlap(Point l1, Point r1, Point l2, Point r2) {
+        if (l1.x >= r2.x || l2.x >= r1.x && l1.y <= r2.y || l2.y <= r1.y) {
+            return false;
+        }
+        return true;
     }
 
     public Boolean isVisible(){
