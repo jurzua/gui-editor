@@ -3,8 +3,6 @@ package cl.talca.videogame.component;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -12,10 +10,9 @@ public class Aircraft implements Shape{
 
     int x=400, y, width=30,height=30;
     boolean safe = true;
-    int area = width * height;
     int destructionIterations = 1;
     int MAX_DESTRUCTION_ITERATIONS = 60;
-    private BufferedImage image;
+    private Image image;
 
     public Aircraft(int positionY){
         this.y = positionY;
@@ -31,15 +28,17 @@ public class Aircraft implements Shape{
 
     public Aircraft() {
         try {
-            image = ImageIO.read(new File("aircraft.png"));
+            //I try using the complete path, but that isn't the problem apparently. If you try it, remember to change the path
+            image = ImageIO.read(new File("C:\\Projects\\gui-editor\\docs\\aircraft.png"));
         } catch (IOException ex) {
             // handle exception...
         }
     }
+
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         if(this.safe == true){
-            g2d.drawImage(image, x, y, (ImageObserver) this);
+            g2d.drawImage(this.image, this.x, this.y, null);
             //g2d.setColor(Color.BLACK);
             //g.drawRect(x, y, width, height);
             //g2d.fillRect(x, y, width, height);
