@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 
-public class Asteroid implements Shape {
+public class Asteroid implements ShapeInterface {
 
     int x, y;
     int speedY;

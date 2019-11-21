@@ -1,27 +1,23 @@
 package cl.talca.videogame.component;
 
-import javax.imageio.ImageIO;
+import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-public class Aircraft implements Shape{
+public class Aircraft implements ShapeInterface {
 
     int x=400, y, width=30,height=30;
     boolean safe = true;
     int destructionIterations = 1;
     int MAX_DESTRUCTION_ITERATIONS = 60;
     private BufferedImage image = null;
+    private JPanel observer = null;
 
-    public Aircraft(int positionY){
+    public Aircraft(int positionY, BufferedImage image, JPanel observer){
         this.y = positionY;
-        try {
-            image = ImageIO.read(getClass().getClassLoader().getResource("aircraft.png"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        this.image = image;
+        this.observer = observer;
     }
 
     public Point getP1(){
@@ -37,7 +33,8 @@ public class Aircraft implements Shape{
         try {
             Graphics2D g2d = (Graphics2D) g;
             if(this.safe == true){
-                g2d.drawImage(image, x, y, null);
+                //g2d.drawImage(image, x, y, observer);
+                System.out.println();
                 //g2d.setColor(Color.BLACK);
                 //g.drawRect(x, y, width, height);
                 //g2d.fillRect(x, y, width, height);

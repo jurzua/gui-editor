@@ -3,7 +3,8 @@ package cl.talca.videogame;
 import cl.talca.videogame.component.Aircraft;
 import cl.talca.videogame.component.Asteroid;
 import cl.talca.videogame.component.Bullet;
-import cl.talca.videogame.component.Shape;
+import cl.talca.videogame.component.ShapeInterface;
+import cl.talca.videogame.resources.ResourcesManager;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -18,7 +19,8 @@ public class GamePanel extends JPanel implements ActionListener {
     static int SCREEN_WIDE = 600;
     static int SCREEN_HIGH = 400;
 
-    List<Shape> shapeList = new ArrayList<Shape>();
+    ResourcesManager resourcesManager = new ResourcesManager();
+    List<ShapeInterface> shapeList = new ArrayList<ShapeInterface>();
     Aircraft aircraft;
 
     private Timer timer = new Timer(5, this);
@@ -36,7 +38,10 @@ public class GamePanel extends JPanel implements ActionListener {
             //System.out.println("Asteroid = " +asteroidCount);
         }
         setBackground(Color.LIGHT_GRAY);
-        this.aircraft = new Aircraft(SCREEN_HIGH -10);
+        this.aircraft = new Aircraft(
+                SCREEN_HIGH -10,
+                this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG),
+                this);
         shapeList.add(this.aircraft);
     }
 
@@ -51,13 +56,19 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        for(Shape shape : shapeList) {
+        for(ShapeInterface shape : shapeList) {
             shape.draw(g);
         }
         this.timer.start();
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(SCREEN_WIDE, SCREEN_HIGH);
     }
 
     //call with timer
@@ -87,15 +98,15 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
 
-        List<Shape> listToDelete = new ArrayList<Shape>();
-        for(Shape shape : shapeList) {
+        List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();
+        for(ShapeInterface shape : shapeList) {
 
             shape.updatePosition();
             if(!shape.isVisible()){
                 listToDelete.add(shape);
             }
         }
-        for(Shape shapeToDelete : listToDelete) {
+        for(ShapeInterface shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
             if(shapeToDelete instanceof Asteroid){
                 shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2)));
@@ -114,7 +125,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private List<Asteroid> getAsteroids(){
         List<Asteroid> list = new ArrayList<Asteroid>();
-        for(Shape shape : this.shapeList){
+        for(ShapeInterface shape : this.shapeList){
             if(shape instanceof Asteroid){
                 list.add((Asteroid) shape);
             }
@@ -124,7 +135,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private List<Bullet> getBullets() {
         List<Bullet> list = new ArrayList<Bullet>();
-        for(Shape shape : this.shapeList) {
+        for(ShapeInterface shape : this.shapeList) {
             if(shape instanceof Bullet) {
                 list.add((Bullet)shape);
             }

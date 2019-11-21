@@ -3,7 +3,7 @@ package cl.talca.videogame.component;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class Bullet implements Shape{
+public class Bullet implements ShapeInterface {
 
     int x, y;
     int speedY;
