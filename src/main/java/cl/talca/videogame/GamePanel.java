@@ -4,14 +4,12 @@ import cl.talca.videogame.component.Aircraft;
 import cl.talca.videogame.component.Asteroid;
 import cl.talca.videogame.component.Bullet;
 import cl.talca.videogame.component.Shape;
-import sun.java2d.pipe.BufferedTextPipe;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +46,7 @@ public class GamePanel extends JPanel implements ActionListener {
             Bullet myBullet = new Bullet(initialPosition.x, initialPosition.y);
             shapeList.add(myBullet);
             //bulletCount +=1;
+            //class path
             //System.out.println("Bullet Count is equal to: " + bulletCount);
         }
     }
