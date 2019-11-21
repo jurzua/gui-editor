@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements ActionListener {
             Bullet myBullet = new Bullet(initialPosition.x, initialPosition.y);
             shapeList.add(myBullet);
             //bulletCount +=1;
+            //class path
             //System.out.println("Bullet Count is equal to: " + bulletCount);
         }
     }
