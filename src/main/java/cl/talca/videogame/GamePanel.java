@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GamePanel extends JPanel implements ActionListener {
-
+    //tontera
     static int SCREEN_WIDE = 600;
     static int SCREEN_HIGH = 400;
 
