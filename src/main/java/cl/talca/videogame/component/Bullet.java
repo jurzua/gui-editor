@@ -8,7 +8,6 @@ public class Bullet implements ShapeInterface {
     int x, y;
     int speedY;
     boolean alive = true;
-    boolean aircraftSafe = true;
 
     public Bullet (int x,int y){
         this.x = x;
@@ -32,15 +31,6 @@ public class Bullet implements ShapeInterface {
         }
         return false;
     }
-
-    //public boolean aircraftSafe(Aircraft aircraft) {
-    //        if (aircraft.safe = true){
-    //            this.alive = false;
-    //            return true;
-    //            aircraftSafe is true, the bullet is visible. Else, the bullet isn't visible.
-    //        }
-    //        this.alive = false;
-    //    }
 
     public void updatePosition() {
         this.y -= speedY;

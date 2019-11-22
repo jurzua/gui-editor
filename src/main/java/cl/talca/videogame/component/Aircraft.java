@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class Aircraft implements ShapeInterface {
 
-    int x=400, y, width=30,height=30;
+    int width=30,height=30;
+    int x, y;
     boolean safe = true;
     int destructionIterations = 1;
     int MAX_DESTRUCTION_ITERATIONS = 60;
@@ -15,6 +16,7 @@ public class Aircraft implements ShapeInterface {
     private JPanel observer = null;
 
     public Aircraft(int positionY, BufferedImage image, JPanel observer){
+        this.x = 400;
         this.y = positionY;
         this.image = image;
         this.observer = observer;
@@ -33,8 +35,8 @@ public class Aircraft implements ShapeInterface {
         try {
             Graphics2D g2d = (Graphics2D) g;
             if(this.safe == true){
-                //g2d.drawImage(image, x, y, observer);
-                System.out.println();
+                g2d.drawImage(image, x, y, observer);
+                //System.out.println();
                 //g2d.setColor(Color.BLACK);
                 //g.drawRect(x, y, width, height);
                 //g2d.fillRect(x, y, width, height);

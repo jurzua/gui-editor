@@ -33,7 +33,8 @@ public class GamePanel extends JPanel implements ActionListener {
     public GamePanel() {
 
         for(int index=0;index<asteroid;index++){
-            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2)));
+            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                    this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
             //asteroidCount += 1;
             //System.out.println("Asteroid = " +asteroidCount);
         }
@@ -109,7 +110,8 @@ public class GamePanel extends JPanel implements ActionListener {
         for(ShapeInterface shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
             if(shapeToDelete instanceof Asteroid){
-                shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2)));
+                shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                        this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
                 //asteroidCount += 1;
             } else if(shapeToDelete instanceof Aircraft) {
                 this.aircraft = null;

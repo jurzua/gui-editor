@@ -2,8 +2,10 @@ package cl.talca.videogame.component;
 
 import cl.talca.videogame.MathHelper;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 
 
 public class Asteroid implements ShapeInterface {
@@ -17,12 +19,16 @@ public class Asteroid implements ShapeInterface {
     public int width = 40;
     public int height = 40;
     int destroyCount = 0;
+    private BufferedImage image = null;
+    private JPanel observer = null;
 
-    public Asteroid(int screenWide, int screenHigh, int speedY) {
+    public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
         this.x = MathHelper.randomNumber(0,screenWide);
         this.y = 0;
         this.screenHigh = screenHigh;
         this.speedY = speedY;
+        this.image = image;
+        this.observer = observer;
     }
 
     public Point getP1(){
@@ -31,10 +37,6 @@ public class Asteroid implements ShapeInterface {
 
     public Point getP2(){
         return new Point(this.x + this.width, this.y + this.height);
-    }
-
-    public Rectangle getRectangle(){
-        return new Rectangle(this.x, this.y, this.width, this.height);
     }
 
     public void draw(Graphics g) {
@@ -57,9 +59,10 @@ public class Asteroid implements ShapeInterface {
     }
 
     private void drawNormal(Graphics2D g2d){
-        Ellipse2D.Double circle = new Ellipse2D.Double(x, y, this.width, this.height);
-        g2d.setColor(Color.BLUE);
-        g2d.fill(circle);
+        g2d.drawImage(image, x, y, observer);
+        //Ellipse2D.Double circle = new Ellipse2D.Double(x, y, this.width, this.height);
+        //        g2d.setColor(Color.BLUE);
+        //        g2d.fill(circle);
     }
 
     public void destroyed() {

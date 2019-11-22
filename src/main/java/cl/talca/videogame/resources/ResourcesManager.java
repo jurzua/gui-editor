@@ -9,6 +9,7 @@ import java.util.Map;
 public class ResourcesManager {
 
     public static String AIRCRAFT_IMG = "aircraft";
+    public static String ASTEROID_IMG = "asteroid";
 
     private Map<String, BufferedImage> imageMap;
 
@@ -20,6 +21,7 @@ public class ResourcesManager {
         this.imageMap = new HashMap<String, BufferedImage>();
         try {
             this.imageMap.put(AIRCRAFT_IMG, ImageIO.read(getClass().getClassLoader().getResource("aircraft.png")));
+            this.imageMap.put(ASTEROID_IMG, ImageIO.read(getClass().getClassLoader().getResource("asteroid.png")));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
