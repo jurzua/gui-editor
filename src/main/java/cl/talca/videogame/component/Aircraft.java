@@ -5,41 +5,25 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
-public class Aircraft implements ShapeInterface {
+public class Aircraft extends SuperShape implements ShapeInterface {
 
-    int width=30,height=30;
-    int x, y;
-    boolean safe = true;
+    private boolean inDestruction = false;
     int destructionIterations = 1;
     int MAX_DESTRUCTION_ITERATIONS = 60;
     private BufferedImage image = null;
     private JPanel observer = null;
 
     public Aircraft(int positionY, BufferedImage image, JPanel observer){
-        this.x = 400;
-        this.y = positionY;
+        super(400, positionY, 30, 30);
         this.image = image;
         this.observer = observer;
     }
 
-    public Point getP1(){
-        return new Point(this.x, this.y);
-    }
-
-    public Point getP2(){
-        return new Point(this.x + this.width, this.y + this.height);
-    }
-
-
     public void draw(Graphics g) {
         try {
             Graphics2D g2d = (Graphics2D) g;
-            if(this.safe == true){
+            if(!inDestruction){
                 g2d.drawImage(image, x, y, observer);
-                //System.out.println();
-                //g2d.setColor(Color.BLACK);
-                //g.drawRect(x, y, width, height);
-                //g2d.fillRect(x, y, width, height);
             } else {
                 this.drawAircraftDestruction(g2d);
             }
@@ -58,8 +42,12 @@ public class Aircraft implements ShapeInterface {
         g2d.fill(circle2);
     }
 
+    public void destroyYourself() {
+        this.inDestruction = true;
+    }
+
     public void updatePosition() {
-        if(this.safe == false){
+        if(this.inDestruction){
             this.destructionIterations++;
         }
     }
@@ -69,7 +57,7 @@ public class Aircraft implements ShapeInterface {
     }
 
     public Boolean isVisible() {
-        return this.safe || this.destructionIterations <= MAX_DESTRUCTION_ITERATIONS;
+        return !this.inDestruction || this.destructionIterations <= MAX_DESTRUCTION_ITERATIONS;
     }
 
     public void moveLeft() {

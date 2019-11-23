@@ -78,12 +78,8 @@ public class GamePanel extends JPanel implements ActionListener {
         for(Bullet bullet : getBullets()){
             //each bullet compare with all asteroid's position
             for(Asteroid asteroid : getAsteroids()){
-                if(bullet.destroyAsteroid(asteroid)){
-                    asteroid.destroyed();
-                    //asteroidDestroyed += 1;
-                    //System.out.println("Asteroid destroyed = " +asteroidDestroyed);
-                    //asteroidCount -= 1;
-                    //System.out.println("Asteroid count: " +asteroidCount);
+                if(bullet.collidesWith(asteroid)){
+                    asteroid.destroyYourself();
                     break;
                 }
             }
@@ -92,8 +88,8 @@ public class GamePanel extends JPanel implements ActionListener {
         //comparison of the aircraft with each asteroid
         if(this.aircraft != null) {
             for(Asteroid asteroid : getAsteroids()){
-                if(asteroid.destroyAircraft(aircraft)){
-                    //aircraft.destroyed();
+                if(asteroid.collidesWith(aircraft)){
+                    aircraft.destroyYourself();
                     break;
                 }
             }

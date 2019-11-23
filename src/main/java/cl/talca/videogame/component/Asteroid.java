@@ -7,36 +7,23 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
+public class Asteroid extends SuperShape implements ShapeInterface {
 
-public class Asteroid implements ShapeInterface {
-
-    int x, y;
-    int speedY;
+    private int speedY;
     int screenHigh;
     boolean inDestruction = false;
     int destructionIterations = 1;
     int MAX_DESTRUCTION_ITERATIONS = 50;
-    public int width = 40;
-    public int height = 40;
     int destroyCount = 0;
     private BufferedImage image = null;
     private JPanel observer = null;
 
     public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        this.x = MathHelper.randomNumber(0,screenWide);
-        this.y = 0;
+        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40);
         this.screenHigh = screenHigh;
-        this.speedY = speedY;
         this.image = image;
         this.observer = observer;
-    }
-
-    public Point getP1(){
-        return new Point(this.x, this.y);
-    }
-
-    public Point getP2(){
-        return new Point(this.x + this.width, this.y + this.height);
+        this.speedY = speedY;
     }
 
     public void draw(Graphics g) {
@@ -65,7 +52,7 @@ public class Asteroid implements ShapeInterface {
         //        g2d.fill(circle);
     }
 
-    public void destroyed() {
+    public void destroyYourself() {
         this.inDestruction = true;
     }
 
@@ -78,14 +65,8 @@ public class Asteroid implements ShapeInterface {
         }
     }
 
-    public boolean destroyAircraft(Aircraft aircraft) {
-        //if(this.x >= asteroid.area && this.x <= asteroid.area && this.y >= asteroid.area && this.y <= asteroid.area){
-        // if is true, both shapes are destroyed
-        if( doOverlap(this.getP1(), aircraft.getP1(), this.getP2(), aircraft.getP2())){
-            aircraft.safe = false;
-            return true;
-        }
-        return false;
+    public boolean collidesWith(Aircraft aircraft) {
+        return doOverlap(this.getP1(), aircraft.getP1(), this.getP2(), aircraft.getP2());
     }
 
     static  boolean doOverlap(Point l1, Point r1, Point l2, Point r2) {
