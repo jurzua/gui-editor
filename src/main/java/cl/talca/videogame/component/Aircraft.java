@@ -7,14 +7,11 @@ import java.awt.image.BufferedImage;
 
 public class Aircraft extends SuperShape implements ShapeInterface {
 
-    private boolean inDestruction = false;
-    int destructionIterations = 1;
-    int MAX_DESTRUCTION_ITERATIONS = 60;
     private BufferedImage image = null;
     private JPanel observer = null;
 
     public Aircraft(int positionY, BufferedImage image, JPanel observer){
-        super(400, positionY, 30, 30);
+        super(400, positionY, 30, 30, false, 1, 60);
         this.image = image;
         this.observer = observer;
     }
@@ -40,10 +37,6 @@ public class Aircraft extends SuperShape implements ShapeInterface {
         Ellipse2D.Double circle2 = new Ellipse2D.Double(x, y, 15 + this.destructionIterations, 15 + this.destructionIterations);
         g2d.setColor(Color.YELLOW);
         g2d.fill(circle2);
-    }
-
-    public void destroyYourself() {
-        this.inDestruction = true;
     }
 
     public void updatePosition() {

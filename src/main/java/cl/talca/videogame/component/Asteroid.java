@@ -11,15 +11,12 @@ public class Asteroid extends SuperShape implements ShapeInterface {
 
     private int speedY;
     int screenHigh;
-    boolean inDestruction = false;
-    int destructionIterations = 1;
-    int MAX_DESTRUCTION_ITERATIONS = 50;
     int destroyCount = 0;
     private BufferedImage image = null;
     private JPanel observer = null;
 
-    public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40);
+    public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer, boolean inDestruction) {
+        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40, false, 1, 50);
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;
@@ -50,10 +47,6 @@ public class Asteroid extends SuperShape implements ShapeInterface {
         //Ellipse2D.Double circle = new Ellipse2D.Double(x, y, this.width, this.height);
         //        g2d.setColor(Color.BLUE);
         //        g2d.fill(circle);
-    }
-
-    public void destroyYourself() {
-        this.inDestruction = true;
     }
 
     public void updatePosition() {
