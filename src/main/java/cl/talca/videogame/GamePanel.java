@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     //call with timer
     public void actionPerformed(ActionEvent e) {
-
+        //this.panelStatistics.update(this.gameStatistics);
         for(Bullet bullet : getBullets()){
             //each bullet compare with all asteroid's position
             for(Asteroid asteroid : getAsteroids()){
@@ -81,7 +81,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         //comparison of the aircraft with each asteroid
-        if(this.aircraft != null) {
+        if(this.aircraft != null && !this.aircraft.isInDestruction()) {
             for(Asteroid asteroid : getAsteroids()){
                     if (asteroid.collidesWith(aircraft)) {
                         aircraft.destroyYourself();

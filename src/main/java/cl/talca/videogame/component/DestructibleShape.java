@@ -15,4 +15,8 @@ public class DestructibleShape extends SuperShape {
     public void destroyYourself() {
         this.inDestruction = true;
     }
+
+    public boolean isInDestruction() {
+        return this.inDestruction;
+    }
 }
