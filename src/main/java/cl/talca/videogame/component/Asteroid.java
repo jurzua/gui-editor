@@ -7,16 +7,18 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
-public class Asteroid extends SuperShape implements ShapeInterface {
+public class Asteroid extends DestructibleShape implements ShapeInterface {
 
+    private static int MAX_DESTRUCTION_ITERATIONS = 50;
     private int speedY;
     int screenHigh;
     int destroyCount = 0;
     private BufferedImage image = null;
     private JPanel observer = null;
+    int LifeCounter = 3;
 
-    public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer, boolean inDestruction) {
-        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40, false, 1, 50);
+    public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
+        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40, MAX_DESTRUCTION_ITERATIONS);
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;
@@ -61,8 +63,8 @@ public class Asteroid extends SuperShape implements ShapeInterface {
     public boolean collidesWith(Aircraft aircraft) {
         return doOverlap(this.getP1(), aircraft.getP1(), this.getP2(), aircraft.getP2());
     }
-
-    static  boolean doOverlap(Point l1, Point r1, Point l2, Point r2) {
+    //static
+    public  boolean doOverlap(Point l1, Point r1, Point l2, Point r2) {
         if (l1.x >= r2.x || l2.x <= r1.x && l1.y <= r2.y || l2.y <= r1.y) {
             return false;
         }

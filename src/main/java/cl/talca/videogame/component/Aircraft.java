@@ -5,13 +5,14 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
-public class Aircraft extends SuperShape implements ShapeInterface {
+public class Aircraft extends DestructibleShape implements ShapeInterface {
 
+    private static int MAX_DESTRUCTION_ITERATIONS = 60;
     private BufferedImage image = null;
     private JPanel observer = null;
 
     public Aircraft(int positionY, BufferedImage image, JPanel observer){
-        super(400, positionY, 30, 30, false, 1, 60);
+        super(400, positionY, 30, 30, MAX_DESTRUCTION_ITERATIONS);
         this.image = image;
         this.observer = observer;
     }

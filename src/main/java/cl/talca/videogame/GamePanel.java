@@ -4,6 +4,7 @@ import cl.talca.videogame.component.Aircraft;
 import cl.talca.videogame.component.Asteroid;
 import cl.talca.videogame.component.Bullet;
 import cl.talca.videogame.component.ShapeInterface;
+import cl.talca.videogame.resources.GameStatistics;
 import cl.talca.videogame.resources.ResourcesManager;
 
 import javax.swing.JPanel;
@@ -21,14 +22,12 @@ public class GamePanel extends JPanel implements ActionListener {
 
     ResourcesManager resourcesManager = new ResourcesManager();
     List<ShapeInterface> shapeList = new ArrayList<ShapeInterface>();
-    Aircraft aircraft;
+    private Aircraft aircraft;
+    private GameStatistics gameStatistics = new GameStatistics();
 
     private Timer timer = new Timer(5, this);
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
-    //int asteroidDestroyed = 0;
-    //int bulletCount = 0;
-    //int asteroidCount = 0;
 
     public GamePanel() {
 
@@ -36,13 +35,10 @@ public class GamePanel extends JPanel implements ActionListener {
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
             //asteroidCount += 1;
-            //System.out.println("Asteroid = " +asteroidCount);
         }
         setBackground(Color.LIGHT_GRAY);
-        this.aircraft = new Aircraft(
-                SCREEN_HIGH -10,
-                this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG),
-                this);
+        this.aircraft = new Aircraft(SCREEN_HIGH -10,
+                this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
         shapeList.add(this.aircraft);
     }
 
@@ -52,8 +48,6 @@ public class GamePanel extends JPanel implements ActionListener {
             Bullet myBullet = new Bullet(initialPosition.x, initialPosition.y);
             shapeList.add(myBullet);
             //bulletCount +=1;
-            //class path
-            //System.out.println("Bullet Count is equal to: " + bulletCount);
         }
     }
 
@@ -80,6 +74,7 @@ public class GamePanel extends JPanel implements ActionListener {
             for(Asteroid asteroid : getAsteroids()){
                 if(bullet.collidesWith(asteroid)){
                     asteroid.destroyYourself();
+                    this.gameStatistics.destroyAsteroid();
                     break;
                 }
             }
@@ -88,9 +83,10 @@ public class GamePanel extends JPanel implements ActionListener {
         //comparison of the aircraft with each asteroid
         if(this.aircraft != null) {
             for(Asteroid asteroid : getAsteroids()){
-                if(asteroid.collidesWith(aircraft)){
-                    aircraft.destroyYourself();
-                    break;
+                    if (asteroid.collidesWith(aircraft)) {
+                        aircraft.destroyYourself();
+                        this.gameStatistics.destroyAircraft();
+                        break;
                 }
             }
         }
@@ -110,7 +106,14 @@ public class GamePanel extends JPanel implements ActionListener {
                         this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
                 //asteroidCount += 1;
             } else if(shapeToDelete instanceof Aircraft) {
-                this.aircraft = null;
+                if(this.gameStatistics.hasLives()) {
+                    this.aircraft = new Aircraft(SCREEN_HIGH -10,
+                            this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
+                    shapeList.add(this.aircraft);
+                } else {
+                    this.aircraft = null;
+                }
+
             }
         }
         this.repaint();

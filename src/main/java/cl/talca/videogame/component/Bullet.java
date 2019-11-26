@@ -3,13 +3,19 @@ package cl.talca.videogame.component;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class Bullet extends SuperShape implements ShapeInterface {
+public class Bullet implements ShapeInterface {
 
     boolean alive = true;
     private int speedY;
+    int x, y, width, height;
+
 
     public Bullet (int x,int y){
-        super(x, y, 10, 10);
+        //super(x, y, 10, 10);
+        this.x = x;
+        this.y = y;
+        this.height = 10;
+        this.width = 10;
         this.speedY = 3;
     }
 
