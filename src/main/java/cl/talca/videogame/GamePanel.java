@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private Timer timer = new Timer(5, this);
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
-    private Observer panelStatistics;
+    //private Observer panelStatistics;
 
     public GamePanel() {
 
