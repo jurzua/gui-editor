@@ -1,18 +1,16 @@
 package cl.talca.videogame;
 
-import cl.talca.guieditor.actions.ListenerCreateCircle;
-import cl.talca.videogame.component.Aircraft;
 import cl.talca.videogame.component.GameKeyListener;
+import cl.talca.videogame.resources.GameStatistics;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
+
 public class GameMainFrame extends JFrame {
 
+    private GameStatistics gameStatistics = new GameStatistics();
 
     public GameMainFrame(String title) {
         System.out.println("Initializing game");
@@ -26,17 +24,17 @@ public class GameMainFrame extends JFrame {
         //GamePanel should have counter for the amount of astereoids destroyed
         GamePanel myGamePanel = new GamePanel();
 
-
-        this.getContentPane().add(BorderLayout.NORTH, initActionPanel());
+        this.getContentPane().add(BorderLayout.NORTH, panelStatistics());
         this.getContentPane().add(BorderLayout.CENTER, myGamePanel);
-
         this.addKeyListener(new GameKeyListener(myGamePanel));
-
-
     }
 
-    private JPanel initActionPanel() {
+    private JPanel panelStatistics() {
         JPanel panel = new JPanel();
+        JButton showLivesCount = new JButton(String.valueOf(this.gameStatistics.showLiveCount()));
+        panel.add(showLivesCount);
+        JButton showAsteroidDestroyed = new JButton(String.valueOf(this.gameStatistics.showAsteroidPoints()));
+        panel.add(showAsteroidDestroyed);
         panel.setBackground(Color.BLUE);
         return panel;
     }

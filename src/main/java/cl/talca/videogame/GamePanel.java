@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 public class GamePanel extends JPanel implements ActionListener {
     //tontera
@@ -28,6 +29,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private Timer timer = new Timer(5, this);
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
+    private Observer panelStatistics;
 
     public GamePanel() {
 
@@ -68,7 +70,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     //call with timer
     public void actionPerformed(ActionEvent e) {
-        //this.panelStatistics.update(this.gameStatistics);
+        //this.panelStatistics.update(this.gameStatistics.showLiveCount());
         for(Bullet bullet : getBullets()){
             //each bullet compare with all asteroid's position
             for(Asteroid asteroid : getAsteroids()){

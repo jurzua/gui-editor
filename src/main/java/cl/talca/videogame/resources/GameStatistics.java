@@ -20,4 +20,12 @@ public class GameStatistics {
         return (this.liveCount > 0);
     }
 
+    public int showLiveCount(){
+        return this.liveCount;
+    }
+
+    public int showAsteroidPoints(){
+        return this.points;
+    }
+
 }
