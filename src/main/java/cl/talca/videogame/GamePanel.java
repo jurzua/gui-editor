@@ -24,15 +24,18 @@ public class GamePanel extends JPanel implements ActionListener {
     ResourcesManager resourcesManager = new ResourcesManager();
     List<ShapeInterface> shapeList = new ArrayList<ShapeInterface>();
     private Aircraft aircraft;
-    private GameStatistics gameStatistics = new GameStatistics();
+    private GameStatistics gameStatistics;
+    private StatisticsPanel statisticsPanel;
 
     private Timer timer = new Timer(5, this);
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
     //private Observer panelStatistics;
 
-    public GamePanel() {
+    public GamePanel(GameStatistics gameStatistics, StatisticsPanel statisticsPanel) {
 
+        this.gameStatistics = gameStatistics;
+        this.statisticsPanel = statisticsPanel;
         for(int index=0;index<asteroid;index++){
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
@@ -118,6 +121,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
             }
         }
+
+        this.statisticsPanel.update();
+
         this.repaint();
         //this.printState();
     }
@@ -157,6 +163,8 @@ public class GamePanel extends JPanel implements ActionListener {
             this.aircraft.moveLeft();
         }
     }
+
+
 
 
 }
