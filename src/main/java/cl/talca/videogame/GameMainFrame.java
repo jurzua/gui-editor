@@ -47,7 +47,7 @@ public class GameMainFrame extends JFrame {
      *
      */
     private JPanel panelStatistics() {
-        JPanel panel = new JPanel();
+        StatisticsPanel panel = new StatisticsPanel();
         JButton showLivesCount = new JButton(String.valueOf(this.gameStatistics.showLiveCount()));
         panel.add(showLivesCount);
         JButton showAsteroidDestroyed = new JButton(String.valueOf(this.gameStatistics.showAsteroidPoints()));
