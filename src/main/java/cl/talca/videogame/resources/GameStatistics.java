@@ -14,6 +14,9 @@ public class GameStatistics {
     public void destroyAsteroid() {
         this.asteroidDestroyed++;
         this.points+=10;
+        if(this.points % 100 == 0){
+            this.liveCount++;
+        }
     }
 
     public boolean hasLives(){
@@ -27,5 +30,7 @@ public class GameStatistics {
     public int getScore(){
         return this.points;
     }
+
+
 
 }
