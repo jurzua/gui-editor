@@ -10,6 +10,7 @@ public class ResourcesManager {
 
     public static String AIRCRAFT_IMG = "aircraft";
     public static String ASTEROID_IMG = "asteroid";
+    public static String LIFECOIN_IMG = "lifecoin";
 
     private Map<String, BufferedImage> imageMap;
 
@@ -22,6 +23,7 @@ public class ResourcesManager {
         try {
             this.imageMap.put(AIRCRAFT_IMG, ImageIO.read(getClass().getClassLoader().getResource("aircraft.png")));
             this.imageMap.put(ASTEROID_IMG, ImageIO.read(getClass().getClassLoader().getResource("asteroid.png")));
+            this.imageMap.put(LIFECOIN_IMG, ImageIO.read(getClass().getClassLoader().getResource("lifecoin.png")));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

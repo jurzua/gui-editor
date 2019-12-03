@@ -19,6 +19,10 @@ public class GameStatistics {
         }
     }
 
+    public void lifeCoin() {
+        this.liveCount++;
+    }
+
     public boolean hasLives(){
         return (this.liveCount > 0);
     }

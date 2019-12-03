@@ -1,9 +1,6 @@
 package cl.talca.videogame;
 
-import cl.talca.videogame.component.Aircraft;
-import cl.talca.videogame.component.Asteroid;
-import cl.talca.videogame.component.Bullet;
-import cl.talca.videogame.component.ShapeInterface;
+import cl.talca.videogame.component.*;
 import cl.talca.videogame.resources.GameStatistics;
 import cl.talca.videogame.resources.ResourcesManager;
 
@@ -28,6 +25,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private StatisticsPanel statisticsPanel;
 
     private Timer timer = new Timer(5, this);
+    private Timer coinTimer = new Timer(50, this);
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
     //private Observer panelStatistics;
@@ -39,12 +37,16 @@ public class GamePanel extends JPanel implements ActionListener {
         for(int index=0;index<asteroid;index++){
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
-            //asteroidCount += 1;
         }
         setBackground(Color.LIGHT_GRAY);
         this.aircraft = new Aircraft(SCREEN_HIGH -10,
                 this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
         shapeList.add(this.aircraft);
+        if(coinTimer == coinTimer){
+            shapeList.add(new LifeCoin(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                    this.resourcesManager.get(ResourcesManager.LIFECOIN_IMG),this));
+        }
+
     }
 
     public void createBullet(){
@@ -73,7 +75,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     //call with timer
     public void actionPerformed(ActionEvent e) {
-        //this.panelStatistics.update(this.gameStatistics.showLiveCount());
         for(Bullet bullet : getBullets()){
             //each bullet compare with all asteroid's position
             for(Asteroid asteroid : getAsteroids()){
@@ -96,6 +97,17 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
 
+        //comparison of the aircraft with coin
+        if(this.aircraft != null && !this.aircraft.isInDestruction()) {
+            for(LifeCoin lifeCoin : getLifeCoin()){
+                if (lifeCoin.collidesWith(aircraft)) {
+                    lifeCoin.destroyYourself();
+                    this.gameStatistics.lifeCoin();
+                    break;
+                }
+            }
+        }
+
         List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();
         for(ShapeInterface shape : shapeList) {
 
@@ -109,7 +121,6 @@ public class GamePanel extends JPanel implements ActionListener {
             if(shapeToDelete instanceof Asteroid){
                 shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
                         this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
-                //asteroidCount += 1;
             } else if(shapeToDelete instanceof Aircraft) {
                 if(this.gameStatistics.hasLives()) {
                     this.aircraft = new Aircraft(SCREEN_HIGH -10,
@@ -121,9 +132,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
             }
         }
-
         this.statisticsPanel.update();
-
         this.repaint();
         //this.printState();
     }
@@ -147,6 +156,16 @@ public class GamePanel extends JPanel implements ActionListener {
         for(ShapeInterface shape : this.shapeList) {
             if(shape instanceof Bullet) {
                 list.add((Bullet)shape);
+            }
+        }
+        return list;
+    }
+
+    private List<LifeCoin> getLifeCoin() {
+        List<LifeCoin> list = new ArrayList<LifeCoin>();
+        for(ShapeInterface shape : this.shapeList) {
+            if(shape instanceof LifeCoin) {
+                list.add((LifeCoin)shape);
             }
         }
         return list;

@@ -9,15 +9,12 @@ import java.awt.image.BufferedImage;
 
 public class LifeCoin extends CollideShape implements ShapeInterface {
 
-    private static int MAX_DESTRUCTION_ITERATIONS = 50;
     private int speedY;
-    int destroyCount = 0;
     private BufferedImage image = null;
     private JPanel observer = null;
-    int LifeCounter = 3;
 
     public LifeCoin(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40, MAX_DESTRUCTION_ITERATIONS,0, screenHigh);
+        super(MathHelper.randomNumber(0,screenWide),0, 30, 30, 30,0, screenHigh);
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;
@@ -34,20 +31,13 @@ public class LifeCoin extends CollideShape implements ShapeInterface {
     }
 
     private void drawInDestruction(Graphics2D g2d){
-        Ellipse2D.Double circle1 = new Ellipse2D.Double(x, y, 10 + this.destructionIterations, 10 + this.destructionIterations);
-        g2d.setColor(Color.ORANGE);
-        g2d.fill(circle1);
-
-        Ellipse2D.Double circle2 = new Ellipse2D.Double(x, y, 5 + this.destructionIterations, 5 + this.destructionIterations);
-        g2d.setColor(Color.YELLOW);
-        g2d.fill(circle2);
+        //Ellipse2D.Double circle1 = new Ellipse2D.Double(x, y, 10 + this.destructionIterations, 10 + this.destructionIterations);
+        g2d.drawImage(image, x, y, observer);
+        //g2d.fill(circle1);
     }
 
     private void drawNormal(Graphics2D g2d){
         g2d.drawImage(image, x, y, observer);
-        //Ellipse2D.Double circle = new Ellipse2D.Double(x, y, this.width, this.height);
-        //        g2d.setColor(Color.BLUE);
-        //        g2d.fill(circle);
     }
 
     public void updatePosition() {
