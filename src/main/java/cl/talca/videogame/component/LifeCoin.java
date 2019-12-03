@@ -7,16 +7,17 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
-public class Asteroid extends CollideShape implements ShapeInterface {
+public class LifeCoin extends CollideShape implements ShapeInterface {
 
     private static int MAX_DESTRUCTION_ITERATIONS = 50;
     private int speedY;
     int destroyCount = 0;
     private BufferedImage image = null;
     private JPanel observer = null;
+    int LifeCounter = 3;
 
-    public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40, MAX_DESTRUCTION_ITERATIONS, 0, screenHigh);
+    public LifeCoin(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
+        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40, MAX_DESTRUCTION_ITERATIONS,0, screenHigh);
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;
