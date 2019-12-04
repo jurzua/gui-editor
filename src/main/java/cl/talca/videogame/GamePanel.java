@@ -25,6 +25,14 @@ public class GamePanel extends JPanel implements ActionListener {
     private StatisticsPanel statisticsPanel;
 
     private Timer timer = new Timer(5, this);
+
+    /*
+    * jurzua: esto no lo entiendo. Mi recomendación era usar un contandor de tipo "int" que se incremente cada vez
+    * que el methodo "actionPerformed" es llamado por el timer.
+    * El el mismo método "actionPerformed" tu puedes tener algo asi como if(coinCounter % 1000) {//crear un LifeCoin}
+    *
+    * Crear el CoinLife en el constructor no es una buena idea. Porque no queremos que apareza inmediatamente, si no luego de un tiempo
+    * */
     private Timer coinTimer = new Timer(50, this);
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
@@ -97,6 +105,9 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
 
+        /**
+         * jurzua: excelente!!!!
+         */
         //comparison of the aircraft with coin
         if(this.aircraft != null && !this.aircraft.isInDestruction()) {
             for(LifeCoin lifeCoin : getLifeCoin()){
@@ -129,7 +140,6 @@ public class GamePanel extends JPanel implements ActionListener {
                 } else {
                     this.aircraft = null;
                 }
-
             }
         }
         this.statisticsPanel.update();
