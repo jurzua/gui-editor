@@ -14,7 +14,7 @@ public class LifeCoin extends CollideShape implements ShapeInterface {
     private JPanel observer = null;
 
     public LifeCoin(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathHelper.randomNumber(0,screenWide),0, 30, 30, 30,0, screenHigh);
+        super(MathHelper.randomNumber(0,screenWide),0, 30, 30, 1,0, screenHigh);
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;
@@ -31,7 +31,7 @@ public class LifeCoin extends CollideShape implements ShapeInterface {
     }
 
     private void drawInDestruction(Graphics2D g2d){
-        //Ellipse2D.Double circle1 = new Ellipse2D.Double(x, y, 10 + this.destructionIterations, 10 + this.destructionIterations);
+        //Ellipse2D.Double circle1 = new Ellipse2D.Double(x, y, 10 + this.destructionIterations, 1 + this.destructionIterations);
         g2d.drawImage(image, x, y, observer);
         //g2d.fill(circle1);
     }

@@ -129,7 +129,11 @@ public class GamePanel extends JPanel implements ActionListener {
                 } else {
                     this.aircraft = null;
                 }
-
+            }else if(shapeToDelete instanceof LifeCoin){
+                if(timer == coinTimer){
+                    shapeList.add(new LifeCoin(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,1),
+                            this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
+                }
             }
         }
         this.statisticsPanel.update();
