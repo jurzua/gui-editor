@@ -25,10 +25,18 @@ public class GamePanel extends JPanel implements ActionListener {
     private StatisticsPanel statisticsPanel;
 
     private Timer timer = new Timer(5, this);
-    private Timer coinTimer = new Timer(50, this);
+
+    /*
+    * jurzua: esto no lo entiendo. Mi recomendación era usar un contandor de tipo "int" que se incremente cada vez
+    * que el methodo "actionPerformed" es llamado por el timer.
+    * El el mismo método "actionPerformed" tu puedes tener algo asi como if(coinCounter % 1000) {//crear un LifeCoin}
+    *
+    * Crear el CoinLife en el constructor no es una buena idea. Porque no queremos que apareza inmediatamente, si no luego de un tiempo
+    * */
+    int coinCounter = 0;
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
-    //private Observer panelStatistics;
+
 
     public GamePanel(GameStatistics gameStatistics, StatisticsPanel statisticsPanel) {
 
@@ -42,11 +50,6 @@ public class GamePanel extends JPanel implements ActionListener {
         this.aircraft = new Aircraft(SCREEN_HIGH -10,
                 this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
         shapeList.add(this.aircraft);
-        if(coinTimer == coinTimer){
-            shapeList.add(new LifeCoin(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
-                    this.resourcesManager.get(ResourcesManager.LIFECOIN_IMG),this));
-        }
-
     }
 
     public void createBullet(){
@@ -75,6 +78,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     //call with timer
     public void actionPerformed(ActionEvent e) {
+        coinCounter ++;
         for(Bullet bullet : getBullets()){
             //each bullet compare with all asteroid's position
             for(Asteroid asteroid : getAsteroids()){
@@ -97,6 +101,9 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
 
+        /**
+         * jurzua: excelente!!!!
+         */
         //comparison of the aircraft with coin
         if(this.aircraft != null && !this.aircraft.isInDestruction()) {
             for(LifeCoin lifeCoin : getLifeCoin()){
@@ -106,6 +113,11 @@ public class GamePanel extends JPanel implements ActionListener {
                     break;
                 }
             }
+        }
+
+        if(coinCounter % 1000 == 0){
+            shapeList.add(new LifeCoin(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                    this.resourcesManager.get(ResourcesManager.LIFECOIN_IMG),this));
         }
 
         List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();
@@ -128,11 +140,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     shapeList.add(this.aircraft);
                 } else {
                     this.aircraft = null;
-                }
-            }else if(shapeToDelete instanceof LifeCoin){
-                if(timer == coinTimer){
-                    shapeList.add(new LifeCoin(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,1),
-                            this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
                 }
             }
         }
