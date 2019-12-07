@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements ActionListener {
             shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
         }
+        //I would like to modify the background so that when the game is loaded it has something like a spatial background
         setBackground(Color.LIGHT_GRAY);
         this.aircraft = new Aircraft(SCREEN_HIGH -10,
                 this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
@@ -57,7 +58,6 @@ public class GamePanel extends JPanel implements ActionListener {
             Point initialPosition = this.aircraft.getPosition();
             Bullet myBullet = new Bullet(initialPosition.x, initialPosition.y);
             shapeList.add(myBullet);
-            //bulletCount +=1;
         }
     }
 
