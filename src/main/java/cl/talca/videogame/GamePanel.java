@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
 
 public class GamePanel extends JPanel implements ActionListener {
     //tontera
@@ -25,14 +24,6 @@ public class GamePanel extends JPanel implements ActionListener {
     private StatisticsPanel statisticsPanel;
 
     private Timer timer = new Timer(5, this);
-
-    /*
-    * jurzua: esto no lo entiendo. Mi recomendación era usar un contandor de tipo "int" que se incremente cada vez
-    * que el methodo "actionPerformed" es llamado por el timer.
-    * El el mismo método "actionPerformed" tu puedes tener algo asi como if(coinCounter % 1000) {//crear un LifeCoin}
-    *
-    * Crear el CoinLife en el constructor no es una buena idea. Porque no queremos que apareza inmediatamente, si no luego de un tiempo
-    * */
     int coinCounter = 0;
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 8;
@@ -106,18 +97,34 @@ public class GamePanel extends JPanel implements ActionListener {
          */
         //comparison of the aircraft with coin
         if(this.aircraft != null && !this.aircraft.isInDestruction()) {
-            for(LifeCoin lifeCoin : getLifeCoin()){
-                if (lifeCoin.collidesWith(aircraft)) {
-                    lifeCoin.destroyYourself();
-                    this.gameStatistics.lifeCoin();
+            for(Coins coin : getCoin()){
+                if (coin.collidesWith(aircraft)) {
+                    coin.destroyYourself();
+                    if(coin.randomCoin == 1){
+                        this.gameStatistics.addLive();
+
+                    }else if(coin.randomCoin == 2){
+                        this.gameStatistics.addMidPoints();
+                    }else{
+                        this.gameStatistics.addHighPoints();
+                    }
                     break;
                 }
             }
         }
 
         if(coinCounter % 1000 == 0){
-            shapeList.add(new LifeCoin(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
-                    this.resourcesManager.get(ResourcesManager.LIFECOIN_IMG),this));
+            int randomCoin = MathHelper.randomNumber(1,3);
+            if(randomCoin == 1){
+                shapeList.add(new Coins(randomCoin, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                        this.resourcesManager.get(ResourcesManager.LIFECOIN_IMG),this));
+            }else if(randomCoin == 2){
+                shapeList.add(new Coins(randomCoin, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                        this.resourcesManager.get(ResourcesManager.MIDCOIN_IMG),this));
+            }else{
+                shapeList.add(new Coins(randomCoin, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                        this.resourcesManager.get(ResourcesManager.HIGHCOIN_IMG),this));
+            }
         }
 
         List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();
@@ -172,11 +179,11 @@ public class GamePanel extends JPanel implements ActionListener {
         return list;
     }
 
-    private List<LifeCoin> getLifeCoin() {
-        List<LifeCoin> list = new ArrayList<LifeCoin>();
+    private List<Coins> getCoin() {
+        List<Coins> list = new ArrayList<Coins>();
         for(ShapeInterface shape : this.shapeList) {
-            if(shape instanceof LifeCoin) {
-                list.add((LifeCoin)shape);
+            if(shape instanceof Coins) {
+                list.add((Coins)shape);
             }
         }
         return list;

@@ -7,14 +7,16 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
-public class LifeCoin extends CollideShape implements ShapeInterface {
+public class Coins extends CollideShape implements ShapeInterface {
 
+    public int randomCoin;
     private int speedY;
     private BufferedImage image = null;
     private JPanel observer = null;
 
-    public LifeCoin(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
+    public Coins(int randomCoin, int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
         super(MathHelper.randomNumber(0,screenWide),0, 30, 30, 1,0, screenHigh);
+        this.randomCoin = randomCoin;
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;

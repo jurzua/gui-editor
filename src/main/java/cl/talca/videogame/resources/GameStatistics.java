@@ -19,8 +19,16 @@ public class GameStatistics {
         }
     }
 
-    public void lifeCoin() {
+    public void addLive() {
         this.liveCount++;
+    }
+
+    public void addMidPoints(){
+        this.points+=25;
+    }
+
+    public void addHighPoints(){
+        this.points+=50;
     }
 
     public boolean hasLives(){
@@ -34,6 +42,8 @@ public class GameStatistics {
     public int getScore(){
         return this.points;
     }
+
+
 
 
 
