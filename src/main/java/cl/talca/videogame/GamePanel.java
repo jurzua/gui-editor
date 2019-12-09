@@ -102,11 +102,13 @@ public class GamePanel extends JPanel implements ActionListener {
                     coin.destroyYourself();
                     if(coin.randomCoin == 1){
                         this.gameStatistics.addLive();
-
+                        System.out.println("Ganaste 1 Vida");
                     }else if(coin.randomCoin == 2){
                         this.gameStatistics.addMidPoints();
+                        System.out.println("Ganaste 25 Puntos");
                     }else{
                         this.gameStatistics.addHighPoints();
+                        System.out.println("Ganaste 50 Puntos");
                     }
                     break;
                 }
