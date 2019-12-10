@@ -12,7 +12,7 @@ public class Aircraft extends DestructibleShape implements ShapeInterface {
     private JPanel observer = null;
 
     public Aircraft(int positionY, BufferedImage image, JPanel observer){
-        super(400, positionY, 30, 30, MAX_DESTRUCTION_ITERATIONS);
+        super(400, positionY, 40, 40, MAX_DESTRUCTION_ITERATIONS);
         this.image = image;
         this.observer = observer;
     }
@@ -21,6 +21,8 @@ public class Aircraft extends DestructibleShape implements ShapeInterface {
         try {
             Graphics2D g2d = (Graphics2D) g;
             if(!inDestruction){
+                g2d.setColor(Color.YELLOW);
+                g2d.drawRect(this.x, this.y, this.width, this.height);
                 g2d.drawImage(image, x, y, observer);
             } else {
                 this.drawAircraftDestruction(g2d);

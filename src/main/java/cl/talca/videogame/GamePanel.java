@@ -9,6 +9,7 @@ import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,35 +99,20 @@ public class GamePanel extends JPanel implements ActionListener {
         //comparison of the aircraft with coin
         if(this.aircraft != null && !this.aircraft.isInDestruction()) {
             for(Coins coin : getCoin()){
-                if (coin.collidesWith(aircraft)) {
-                    coin.destroyYourself();
-                    if(coin.randomCoin == 1){
-                        this.gameStatistics.addLive();
-                        System.out.println("Ganaste 1 Vida");
-                    }else if(coin.randomCoin == 2){
-                        this.gameStatistics.addMidPoints();
-                        System.out.println("Ganaste 25 Puntos");
-                    }else{
-                        this.gameStatistics.addHighPoints();
-                        System.out.println("Ganaste 50 Puntos");
+                if(!coin.isInDestruction()){
+                    if (coin.collidesWith(aircraft)) {
+                        coin.destroyYourself();
+                        this.gameStatistics.processCoin(coin);
+                        break;
                     }
-                    break;
                 }
             }
         }
 
         if(coinCounter % 1000 == 0){
-            int randomCoin = MathHelper.randomNumber(1,3);
-            if(randomCoin == 1){
-                shapeList.add(new Coins(randomCoin, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
-                        this.resourcesManager.get(ResourcesManager.LIFECOIN_IMG),this));
-            }else if(randomCoin == 2){
-                shapeList.add(new Coins(randomCoin, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
-                        this.resourcesManager.get(ResourcesManager.MIDCOIN_IMG),this));
-            }else{
-                shapeList.add(new Coins(randomCoin, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
-                        this.resourcesManager.get(ResourcesManager.HIGHCOIN_IMG),this));
-            }
+            CoinType coinType = CoinType.get(MathHelper.randomNumber(0, 2));
+            shapeList.add(new Coins(coinType, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                    this.resourcesManager.get(coinType.toString()),this));
         }
 
         List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();

@@ -1,6 +1,9 @@
 package cl.talca.videogame.resources;
 
 
+import cl.talca.videogame.component.Coins;
+import cl.talca.videogame.component.CoinType;
+
 public class GameStatistics {
 
     private int liveCount = 3;
@@ -13,7 +16,11 @@ public class GameStatistics {
 
     public void destroyAsteroid() {
         this.asteroidDestroyed++;
-        this.points+=10;
+        this.addPoint(10);
+    }
+
+    private void addPoint(int points) {
+        this.points+=points;
         if(this.points % 100 == 0){
             this.liveCount++;
         }
@@ -23,12 +30,16 @@ public class GameStatistics {
         this.liveCount++;
     }
 
-    public void addMidPoints(){
-        this.points+=25;
-    }
+    public void processCoin(Coins coin) {
 
-    public void addHighPoints(){
-        this.points+=50;
+        if(coin.getType().equals(CoinType.LIVE)) {
+            this.liveCount++;
+        }else if(coin.getType().equals(CoinType.POINTS_25)){
+            this.addPoint(25);
+        }else{
+            this.addPoint(50);
+        }
+
     }
 
     public boolean hasLives(){

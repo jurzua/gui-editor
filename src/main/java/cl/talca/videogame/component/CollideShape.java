@@ -13,17 +13,6 @@ public class CollideShape extends DestructibleShape {
         this.screenHigh = screenHigh;
     }
 
-    public boolean collidesWith(Aircraft aircraft) {
-        return doOverlap(this.getP1(), aircraft.getP1(), this.getP2(), aircraft.getP2());
-    }
-
-    public  boolean doOverlap(Point l1, Point r1, Point l2, Point r2) {
-        if (l1.x >= r2.x || l2.x <= r1.x && l1.y <= r2.y || l2.y <= r1.y) {
-            return false;
-        }
-        return true;
-    }
-
     public Boolean isVisible(){
         return this.y <= this.screenHigh && this.destructionIterations <= this.maxDestructionIterations;
     }

@@ -9,18 +9,22 @@ import java.awt.image.BufferedImage;
 
 public class Coins extends CollideShape implements ShapeInterface {
 
-    public int randomCoin;
+    public CoinType type;
     private int speedY;
     private BufferedImage image = null;
     private JPanel observer = null;
 
-    public Coins(int randomCoin, int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathHelper.randomNumber(0,screenWide),0, 30, 30, 1,0, screenHigh);
-        this.randomCoin = randomCoin;
+    public Coins(CoinType type, int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
+        super(MathHelper.randomNumber(0,screenWide),0, 30, 30, 60,0, screenHigh);
+        this.type = type;
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;
         this.speedY = speedY;
+    }
+
+    public CoinType getType() {
+        return this.type;
     }
 
     public void draw(Graphics g) {
@@ -33,9 +37,17 @@ public class Coins extends CollideShape implements ShapeInterface {
     }
 
     private void drawInDestruction(Graphics2D g2d){
-        //Ellipse2D.Double circle1 = new Ellipse2D.Double(x, y, 10 + this.destructionIterations, 1 + this.destructionIterations);
-        g2d.drawImage(image, x, y, observer);
-        //g2d.fill(circle1);
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(getTextInDestruction(), this.x, this.y - 10);
+    }
+
+    private String getTextInDestruction() {
+        switch(this.type) {
+               case LIVE : return "Won 1 live";
+               case POINTS_25 : return "Won 25 points";
+               case POINTS_50 : return "Won 50 points";
+        }
+        return "error type";
     }
 
     private void drawNormal(Graphics2D g2d){

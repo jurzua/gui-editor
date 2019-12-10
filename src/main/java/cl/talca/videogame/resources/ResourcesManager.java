@@ -1,5 +1,7 @@
 package cl.talca.videogame.resources;
 
+import cl.talca.videogame.component.CoinType;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.image.BufferedImage;
@@ -10,9 +12,9 @@ public class ResourcesManager {
 
     public static String AIRCRAFT_IMG = "aircraft";
     public static String ASTEROID_IMG = "asteroid";
-    public static String LIFECOIN_IMG = "lifecoin";
-    public static String MIDCOIN_IMG = "midcoin";
-    public static String HIGHCOIN_IMG = "highcoin";
+    public static String COIN_TYPE_LIVE = CoinType.LIVE.toString();
+    public static String COIN_TYPE_POINTS_25 = CoinType.POINTS_25.toString();
+    public static String COIN_TYPE_POINTS_50 = CoinType.POINTS_50.toString();
 
     private Map<String, BufferedImage> imageMap;
 
@@ -25,9 +27,9 @@ public class ResourcesManager {
         try {
             this.imageMap.put(AIRCRAFT_IMG, ImageIO.read(getClass().getClassLoader().getResource("aircraft.png")));
             this.imageMap.put(ASTEROID_IMG, ImageIO.read(getClass().getClassLoader().getResource("asteroid.png")));
-            this.imageMap.put(LIFECOIN_IMG, ImageIO.read(getClass().getClassLoader().getResource("lifecoin.png")));
-            this.imageMap.put(MIDCOIN_IMG, ImageIO.read(getClass().getClassLoader().getResource("midcoin.png")));
-            this.imageMap.put(HIGHCOIN_IMG, ImageIO.read(getClass().getClassLoader().getResource("highcoin.png")));
+            this.imageMap.put(COIN_TYPE_LIVE, ImageIO.read(getClass().getClassLoader().getResource("lifecoin.png")));
+            this.imageMap.put(COIN_TYPE_POINTS_25, ImageIO.read(getClass().getClassLoader().getResource("midcoin.png")));
+            this.imageMap.put(COIN_TYPE_POINTS_50, ImageIO.read(getClass().getClassLoader().getResource("highcoin.png")));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -27,6 +27,8 @@ public class Asteroid extends CollideShape implements ShapeInterface {
         if(this.inDestruction){
             this.drawInDestruction(g2d);
         } else {
+            g2d.setColor(Color.YELLOW);
+            g2d.drawRect(this.x, this.y, this.width, this.height);
             this.drawNormal(g2d);
         }
     }

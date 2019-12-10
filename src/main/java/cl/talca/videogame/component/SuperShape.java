@@ -16,6 +16,17 @@ public abstract class SuperShape {
         this.height = height;
     }
 
+    public boolean collidesWith(SuperShape shape) {
+        return doOverlap(this.getP1(), shape.getP1(), this.getP2(), shape.getP2());
+    }
+
+    public  boolean doOverlap(Point l1, Point r1, Point l2, Point r2) {
+        if (l1.x >= r2.x || l2.x <= r1.x && l1.y <= r2.y || l2.y <= r1.y) {
+            return false;
+        }
+        return true;
+    }
+
 
     public Point getP1(){
         return new Point(this.x, this.y);
