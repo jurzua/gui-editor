@@ -24,10 +24,10 @@ public class GamePanel extends JPanel implements ActionListener {
     private GameStatistics gameStatistics;
     private StatisticsPanel statisticsPanel;
 
-    private Timer timer = new Timer(5, this);
+    private Timer timer = new Timer(7, this);
     int coinCounter = 0;
     double x = 0, y = 0, vx = 2, vy = 2;
-    int asteroid = 8;
+    int asteroid = 5;
 
 
     public GamePanel(GameStatistics gameStatistics, StatisticsPanel statisticsPanel) {

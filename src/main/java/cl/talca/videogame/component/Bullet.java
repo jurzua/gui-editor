@@ -22,17 +22,11 @@ public class Bullet extends SuperShape implements ShapeInterface {
 
     public boolean collidesWith(Asteroid asteroid) {
         // if true, both shapes are destroyed
-        if (this.x >= asteroid.x && this.x <= asteroid.x + asteroid.width &&
-                this.y >= asteroid.y && this.y <= asteroid.y + asteroid.height) {
+        if (super.collidesWith(asteroid)) {
             this.alive = false;
             return true;
         }
         return false;
-    }
-
-    public boolean doOverlap(Asteroid asteroid) {
-        return (this.x >= asteroid.x && this.x <= asteroid.x + asteroid.width &&
-                this.y >= asteroid.y && this.y <= asteroid.y + asteroid.height);
     }
 
     public void updatePosition() {

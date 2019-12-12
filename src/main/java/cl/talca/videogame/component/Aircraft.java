@@ -57,10 +57,10 @@ public class Aircraft extends DestructibleShape implements ShapeInterface {
     }
 
     public void moveLeft() {
-        this.x-=10;
+        this.x-=15;
     }
 
     public void moveRight() {
-        this.x+=10;
+        this.x+=15;
     }
 }
