@@ -1,6 +1,7 @@
 package cl.talca.videogame.utils;
 
 import java.awt.Point;
+import java.util.Random;
 
 public class MathUtils {
 
@@ -9,14 +10,18 @@ public class MathUtils {
             return false;
         }
 
-        /*
-        la siguiente linea es el problema. En el eje X _todo funciona bien, sin embargo
-        en el eje Y la condición esta al revés
-        /linea original: "if (sourcePoint1.y < targetPoint2.y || targetPoint1.y < sourcePoint2.y) {"
-         */
         if (sourcePoint1.y > targetPoint2.y || targetPoint1.y > sourcePoint2.y) {
             return false;
         }
         return true;
+    }
+
+    public static int randomNumber(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }

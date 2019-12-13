@@ -1,6 +1,7 @@
 package cl.talca.videogame.component;
 
-import cl.talca.videogame.MathHelper;
+
+import cl.talca.videogame.utils.MathUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class Asteroid extends CollideShape implements ShapeInterface {
     private JPanel observer = null;
 
     public Asteroid(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathHelper.randomNumber(0,screenWide), 0, 40, 40, 50, 0, screenHigh);
+        super(MathUtils.randomNumber(0,screenWide), 0, 40, 40, 50, 0, screenHigh);
         this.screenHigh = screenHigh;
         this.image = image;
         this.observer = observer;

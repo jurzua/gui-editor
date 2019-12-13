@@ -3,6 +3,7 @@ package cl.talca.videogame;
 import cl.talca.videogame.component.*;
 import cl.talca.videogame.resources.GameStatistics;
 import cl.talca.videogame.resources.ResourcesManager;
+import cl.talca.videogame.utils.MathUtils;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.gameStatistics = gameStatistics;
         this.statisticsPanel = statisticsPanel;
         for(int index=0;index<asteroid;index++){
-            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
         }
         //I would like to modify the background so that when the game is loaded it has something like a spatial background
@@ -110,8 +111,8 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         if(coinCounter % 1000 == 0){
-            CoinType coinType = CoinType.get(MathHelper.randomNumber(0, 2));
-            shapeList.add(new Coins(coinType, SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+            CoinType coinType = CoinType.get(MathUtils.randomNumber(0, 2));
+            shapeList.add(new Coins(coinType, SCREEN_WIDE, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                     this.resourcesManager.get(coinType.toString()),this));
         }
 
@@ -126,7 +127,7 @@ public class GamePanel extends JPanel implements ActionListener {
         for(ShapeInterface shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
             if(shapeToDelete instanceof Asteroid){
-                shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathHelper.randomNumber(1,2),
+                shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                         this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
             } else if(shapeToDelete instanceof Aircraft) {
                 if(this.gameStatistics.hasLives()) {

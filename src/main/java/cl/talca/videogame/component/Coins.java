@@ -1,6 +1,6 @@
 package cl.talca.videogame.component;
 
-import cl.talca.videogame.MathHelper;
+import cl.talca.videogame.utils.MathUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class Coins extends CollideShape implements ShapeInterface {
     private JPanel observer = null;
 
     public Coins(CoinType type, int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathHelper.randomNumber(0,screenWide),0, 30, 30, 60,0, screenHigh);
+        super(MathUtils.randomNumber(0,screenWide),0, 30, 30, 60,0, screenHigh);
         this.type = type;
         this.screenHigh = screenHigh;
         this.image = image;
