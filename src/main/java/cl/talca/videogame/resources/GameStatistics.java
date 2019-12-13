@@ -26,10 +26,6 @@ public class GameStatistics {
         }
     }
 
-    public void addLive() {
-        this.liveCount++;
-    }
-
     public void processCoin(Coins coin) {
 
         if(coin.getType().equals(CoinType.LIVE)) {
