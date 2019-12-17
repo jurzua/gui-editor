@@ -19,20 +19,20 @@ public class StreamsPractice {
 
         List<String> result = list.stream()
                 .filter(input -> input > 5)
-                .filter(input -> {
+                /*.filter(input -> {
                     return input > 5;
-                })
+                })*/
                 .map(input -> input.toString())
                 .peek(input -> {
                     String var = input + "aaa";
                     System.out.println(var);
                 })
-                .peek(System.out::println) //consumer . operation intermedia
+                /*.peek(System.out::println) //consumer . operation intermedia*/
                 .collect(Collectors.toList()); //operation final
-
+/*
         for(String i : result) {
             System.out.println(i);
-        }
+        }*/
 
         result.stream().forEach(System.out::println);
 

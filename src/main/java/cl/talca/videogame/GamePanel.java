@@ -72,6 +72,15 @@ public class GamePanel extends JPanel implements ActionListener {
     //call with timer
     public void actionPerformed(ActionEvent e) {
         coinCounter ++;
+        /*
+        List<Bullet> bullet = shapeList.stream()
+                .forEach(getBullets -> getAsteroids() -> {
+                    if(bullet.get(collideWith(asteroid)){
+                        asteroid.this.destroyYourself();
+                        this.gameStatistics.destroyAsteroid();
+                    };
+        });*/
+
         for(Bullet bullet : getBullets()){
             //each bullet compare with all asteroid's position
             for(Asteroid asteroid : getAsteroids()){
