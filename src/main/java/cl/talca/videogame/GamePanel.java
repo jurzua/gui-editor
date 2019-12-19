@@ -1,5 +1,6 @@
 package cl.talca.videogame;
 
+import cl.talca.jdk8.FunctionBulletTitle;
 import cl.talca.videogame.component.*;
 import cl.talca.videogame.resources.GameStatistics;
 import cl.talca.videogame.resources.ResourcesManager;
@@ -10,9 +11,9 @@ import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GamePanel extends JPanel implements ActionListener {
     //tontera
@@ -72,15 +73,8 @@ public class GamePanel extends JPanel implements ActionListener {
     //call with timer
     public void actionPerformed(ActionEvent e) {
         coinCounter ++;
-        /*
-        List<Bullet> bullet = shapeList.stream()
-                .forEach(getBullets -> getAsteroids() -> {
-                    if(bullet.get(collideWith(asteroid)){
-                        asteroid.this.destroyYourself();
-                        this.gameStatistics.destroyAsteroid();
-                    };
-        });*/
 
+        /*
         for(Bullet bullet : getBullets()){
             //each bullet compare with all asteroid's position
             for(Asteroid asteroid : getAsteroids()){
@@ -90,7 +84,17 @@ public class GamePanel extends JPanel implements ActionListener {
                     break;
                 }
             }
-        }
+        }*/
+
+        getBullets().stream().forEach(bullet -> {
+            getAsteroids().stream()
+                    .filter(asteroid -> bullet.collidesWith(asteroid))
+                    .findFirst()
+                    .ifPresent(asteroid -> {
+                        asteroid.destroyYourself();
+                        this.gameStatistics.destroyAsteroid();
+                    });
+        });
 
         //comparison of the aircraft with each asteroid
         if(this.aircraft != null && !this.aircraft.isInDestruction()) {
@@ -168,6 +172,16 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private List<Bullet> getBullets() {
+
+
+
+        return this.shapeList.stream()
+                //.filter(shapeInterface -> shapeInterface instanceof Bullet)
+                .filter(Bullet.class::isInstance)
+                //.map(shapeInterface -> (Bullet)shapeInterface)
+                .map(Bullet.class::cast)
+                .collect(Collectors.toList());
+        /*
         List<Bullet> list = new ArrayList<Bullet>();
         for(ShapeInterface shape : this.shapeList) {
             if(shape instanceof Bullet) {
@@ -175,6 +189,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
         return list;
+        */
     }
 
     private List<Coins> getCoin() {
