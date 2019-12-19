@@ -97,37 +97,39 @@ public class GamePanel extends JPanel implements ActionListener {
         });
 
         //comparison of the aircraft with each asteroid
-        if(this.aircraft != null && !this.aircraft.isInDestruction()) {
-            for(Asteroid asteroid : getAsteroids()){
-                    if (asteroid.collidesWith(aircraft)) {
-                        aircraft.destroyYourself();
-                        this.gameStatistics.destroyAircraft();
-                        break;
-                }
-            }
-        }
+        getAsteroids().stream()
+                .filter(aircraft -> this.aircraft != null && !this.aircraft.isInDestruction())
+                .filter(asteroid -> asteroid.collidesWith(aircraft))
+                .findFirst()
+                .ifPresent(asteroid -> {
+                    aircraft.destroyYourself();
+                    this.gameStatistics.destroyAircraft();
+                });
 
-        /**
-         * jurzua: excelente!!!!
-         */
         //comparison of the aircraft with coin
-        if(this.aircraft != null && !this.aircraft.isInDestruction()) {
-            for(Coins coin : getCoin()){
-                if(!coin.isInDestruction()){
-                    if (coin.collidesWith(aircraft)) {
-                        coin.destroyYourself();
-                        this.gameStatistics.processCoin(coin);
-                        break;
-                    }
-                }
-            }
-        }
+        getCoin().stream()
+                .filter(aircraft -> aircraft != null && !this.aircraft.isInDestruction())
+                .filter(coin -> coin.collidesWith(aircraft))
+                .findFirst()
+                .ifPresent(coin -> {
+                    coin.destroyYourself();
+                    this.gameStatistics.processCoin(coin);
+                });
 
         if(coinCounter % 1000 == 0){
             CoinType coinType = CoinType.get(MathUtils.randomNumber(0, 2));
             shapeList.add(new Coins(coinType, SCREEN_WIDE, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                     this.resourcesManager.get(coinType.toString()),this));
         }
+
+
+        /*List<ShapeInterface> listToDelete = shapeList.stream().forEach(shape -> {
+            shapeList.stream()
+            .forEach(shape -> shape.updatePosition())
+            .filter(shape -> !shape.isVisible())
+
+                });*/
+
 
         List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();
         for(ShapeInterface shape : shapeList) {
@@ -162,18 +164,14 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private List<Asteroid> getAsteroids(){
-        List<Asteroid> list = new ArrayList<Asteroid>();
-        for(ShapeInterface shape : this.shapeList){
-            if(shape instanceof Asteroid){
-                list.add((Asteroid) shape);
-            }
-        }
-        return list;
+
+        return this.shapeList.stream()
+                .filter(Asteroid.class::isInstance)
+                .map(Asteroid.class::cast)
+                .collect(Collectors.toList());
     }
 
     private List<Bullet> getBullets() {
-
-
 
         return this.shapeList.stream()
                 //.filter(shapeInterface -> shapeInterface instanceof Bullet)
@@ -193,13 +191,10 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private List<Coins> getCoin() {
-        List<Coins> list = new ArrayList<Coins>();
-        for(ShapeInterface shape : this.shapeList) {
-            if(shape instanceof Coins) {
-                list.add((Coins)shape);
-            }
-        }
-        return list;
+        return this.shapeList.stream()
+                .filter(Coins.class::isInstance)
+                .map(Coins.class::cast)
+                .collect(Collectors.toList());
     }
 
     public void aircraftMoveRight() {
