@@ -97,24 +97,23 @@ public class GamePanel extends JPanel implements ActionListener {
         });
 
         //comparison of the aircraft with each asteroid
-        getAsteroids().stream()
-                .filter(aircraft -> this.aircraft != null && !this.aircraft.isInDestruction())
-                .filter(asteroid -> asteroid.collidesWith(aircraft))
-                .findFirst()
-                .ifPresent(asteroid -> {
-                    aircraft.destroyYourself();
-                    this.gameStatistics.destroyAircraft();
-                });
+        if(this.aircraft != null && !this.aircraft.isInDestruction()) {
+            getAsteroids().stream()
+                    .filter(asteroid -> asteroid.collidesWith(aircraft))
+                    .findFirst()
+                    .ifPresent(asteroid -> {
+                        aircraft.destroyYourself();
+                        this.gameStatistics.destroyAircraft();
+                    });
 
-        //comparison of the aircraft with coin
-        getCoin().stream()
-                .filter(aircraft -> aircraft != null && !this.aircraft.isInDestruction())
-                .filter(coin -> coin.collidesWith(aircraft))
-                .findFirst()
-                .ifPresent(coin -> {
-                    coin.destroyYourself();
-                    this.gameStatistics.processCoin(coin);
-                });
+            getCoin().stream()
+                    .filter(coin -> !coin.isInDestruction()  && coin.collidesWith(aircraft))
+                    .findFirst()
+                    .ifPresent(coin -> {
+                        coin.destroyYourself();
+                        this.gameStatistics.processCoin(coin);
+                    });
+        }
 
         if(coinCounter % 1000 == 0){
             CoinType coinType = CoinType.get(MathUtils.randomNumber(0, 2));
@@ -130,7 +129,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
                 });*/
 
-
+        List<ShapeInterface> listToDelete = shapeList.stream()
+                .peek(shapeInterface -> shapeInterface.updatePosition())
+                .filter(shapeInterface -> !shapeInterface.isVisible())
+                .collect(Collectors.toList());
+        /*
         List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();
         for(ShapeInterface shape : shapeList) {
 
@@ -138,7 +141,7 @@ public class GamePanel extends JPanel implements ActionListener {
             if(!shape.isVisible()){
                 listToDelete.add(shape);
             }
-        }
+        }*/
         for(ShapeInterface shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
             if(shapeToDelete instanceof Asteroid){
