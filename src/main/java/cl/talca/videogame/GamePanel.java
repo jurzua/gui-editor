@@ -6,11 +6,14 @@ import cl.talca.videogame.resources.GameStatistics;
 import cl.talca.videogame.resources.ResourcesManager;
 import cl.talca.videogame.utils.MathUtils;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,13 +29,14 @@ public class GamePanel extends JPanel implements ActionListener {
     private GameStatistics gameStatistics;
     private StatisticsPanel statisticsPanel;
 
+    BufferedImage img = ImageIO.read(new File("C:\\Projects\\gui-editor\\src\\main\\resources\\background.png"));
     private Timer timer = new Timer(7, this);
     int coinCounter = 0;
     double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 5;
 
 
-    public GamePanel(GameStatistics gameStatistics, StatisticsPanel statisticsPanel) {
+    public GamePanel(GameStatistics gameStatistics, StatisticsPanel statisticsPanel) throws IOException {
 
         this.gameStatistics = gameStatistics;
         this.statisticsPanel = statisticsPanel;
@@ -41,7 +45,8 @@ public class GamePanel extends JPanel implements ActionListener {
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
         }
         //I would like to modify the background so that when the game is loaded it has something like a spatial background
-        setBackground(Color.LIGHT_GRAY);
+        /*setBackground(Color.LIGHT_GRAY);*/
+
         this.aircraft = new Aircraft(SCREEN_HIGH -10,
                 this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
         shapeList.add(this.aircraft);
@@ -74,17 +79,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         coinCounter ++;
 
-        /*
-        for(Bullet bullet : getBullets()){
-            //each bullet compare with all asteroid's position
-            for(Asteroid asteroid : getAsteroids()){
-                if(bullet.collidesWith(asteroid)){
-                    asteroid.destroyYourself();
-                    this.gameStatistics.destroyAsteroid();
-                    break;
-                }
-            }
-        }*/
 
         getBullets().stream().forEach(bullet -> {
             getAsteroids().stream()
@@ -121,27 +115,11 @@ public class GamePanel extends JPanel implements ActionListener {
                     this.resourcesManager.get(coinType.toString()),this));
         }
 
-
-        /*List<ShapeInterface> listToDelete = shapeList.stream().forEach(shape -> {
-            shapeList.stream()
-            .forEach(shape -> shape.updatePosition())
-            .filter(shape -> !shape.isVisible())
-
-                });*/
-
         List<ShapeInterface> listToDelete = shapeList.stream()
                 .peek(shapeInterface -> shapeInterface.updatePosition())
                 .filter(shapeInterface -> !shapeInterface.isVisible())
                 .collect(Collectors.toList());
-        /*
-        List<ShapeInterface> listToDelete = new ArrayList<ShapeInterface>();
-        for(ShapeInterface shape : shapeList) {
 
-            shape.updatePosition();
-            if(!shape.isVisible()){
-                listToDelete.add(shape);
-            }
-        }*/
         for(ShapeInterface shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
             if(shapeToDelete instanceof Asteroid){
@@ -177,20 +155,9 @@ public class GamePanel extends JPanel implements ActionListener {
     private List<Bullet> getBullets() {
 
         return this.shapeList.stream()
-                //.filter(shapeInterface -> shapeInterface instanceof Bullet)
                 .filter(Bullet.class::isInstance)
-                //.map(shapeInterface -> (Bullet)shapeInterface)
                 .map(Bullet.class::cast)
                 .collect(Collectors.toList());
-        /*
-        List<Bullet> list = new ArrayList<Bullet>();
-        for(ShapeInterface shape : this.shapeList) {
-            if(shape instanceof Bullet) {
-                list.add((Bullet)shape);
-            }
-        }
-        return list;
-        */
     }
 
     private List<Coins> getCoin() {

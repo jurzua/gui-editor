@@ -1,4 +1,4 @@
-package cl.talca.videogame;
+package cl.talca.videogame.utils;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -14,15 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
-public class Test {
+public class CubeMoveTest {
 
     public static void main(String[] args) {
-        new Test();
+        new CubeMoveTest();
     }
 
-    public Test() {
+    public CubeMoveTest() {
         EventQueue.invokeLater(new Runnable() {
 
             public void run() {
