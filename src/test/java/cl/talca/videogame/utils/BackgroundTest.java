@@ -28,7 +28,7 @@ public class BackgroundTest {
 
                 try {
                     // Load the background image
-                    BufferedImage img = ImageIO.read(new File("C:\\Projects\\gui-editor\\src\\main\\resources\\background.png"));
+                    BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("background.png"));
 
                     // Create the frame...
                     JFrame frame = new JFrame("Testing");
