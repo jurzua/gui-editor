@@ -1,26 +1,32 @@
 package cl.talca.videogame;
 
-import cl.talca.jdk8.FunctionBulletTitle;
-import cl.talca.videogame.component.*;
+import cl.talca.videogame.component.Aircraft;
+import cl.talca.videogame.component.Asteroid;
+import cl.talca.videogame.component.Bullet;
+import cl.talca.videogame.component.CoinType;
+import cl.talca.videogame.component.Coins;
+import cl.talca.videogame.component.ShapeInterface;
 import cl.talca.videogame.resources.GameStatistics;
 import cl.talca.videogame.resources.ResourcesManager;
 import cl.talca.videogame.utils.MathUtils;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class GamePanel extends JPanel implements ActionListener {
-    //tontera
-    static int SCREEN_WIDE = 600;
+
+    static int SCREEN_WIDTH = 600;
     static int SCREEN_HIGH = 400;
 
     ResourcesManager resourcesManager = new ResourcesManager();
@@ -29,10 +35,8 @@ public class GamePanel extends JPanel implements ActionListener {
     private GameStatistics gameStatistics;
     private StatisticsPanel statisticsPanel;
 
-    BufferedImage img = ImageIO.read(new File("C:\\Projects\\gui-editor\\src\\main\\resources\\background.png"));
     private Timer timer = new Timer(7, this);
     int coinCounter = 0;
-    double x = 0, y = 0, vx = 2, vy = 2;
     int asteroid = 5;
 
 
@@ -41,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.gameStatistics = gameStatistics;
         this.statisticsPanel = statisticsPanel;
         for(int index=0;index<asteroid;index++){
-            shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathUtils.randomNumber(1,2),
+            shapeList.add(new Asteroid(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
         }
         //I would like to modify the background so that when the game is loaded it has something like a spatial background
@@ -51,6 +55,15 @@ public class GamePanel extends JPanel implements ActionListener {
         this.aircraft = new Aircraft(SCREEN_HIGH -10,
                 this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
         shapeList.add(this.aircraft);
+    }
+
+    private void drawBackground(Graphics2D g2) {
+
+        g2.drawImage(resourcesManager.get(ResourcesManager.BACKGROUND_IMG), 0, 0, null);
+        g2.setColor(Color.RED);
+        g2.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HIGH);
+
+
     }
 
     public void createBullet(){
@@ -65,6 +78,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+        this.drawBackground(g2);
         for(ShapeInterface shape : shapeList) {
             shape.draw(g);
         }
@@ -73,7 +87,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(SCREEN_WIDE, SCREEN_HIGH);
+        return new Dimension(SCREEN_WIDTH, SCREEN_HIGH);
     }
 
     //call with timer
@@ -112,7 +126,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         if(coinCounter % 1000 == 0){
             CoinType coinType = CoinType.get(MathUtils.randomNumber(0, 2));
-            shapeList.add(new Coins(coinType, SCREEN_WIDE, SCREEN_HIGH, MathUtils.randomNumber(1,2),
+            shapeList.add(new Coins(coinType, SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                     this.resourcesManager.get(coinType.toString()),this));
         }
 
@@ -124,7 +138,7 @@ public class GamePanel extends JPanel implements ActionListener {
         for(ShapeInterface shapeToDelete : listToDelete) {
             shapeList.remove(shapeToDelete);
             if(shapeToDelete instanceof Asteroid){
-                shapeList.add(new Asteroid(SCREEN_WIDE, SCREEN_HIGH, MathUtils.randomNumber(1,2),
+                shapeList.add(new Asteroid(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                         this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
             } else if(shapeToDelete instanceof Aircraft) {
                 if(this.gameStatistics.hasLives()) {

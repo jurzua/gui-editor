@@ -2,7 +2,6 @@ package cl.talca.videogame.utils;
 
 import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -28,7 +27,7 @@ public class BackgroundTest {
 
                 try {
                     // Load the background image
-                    BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("background.png"));
+                    BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("img/background.png"));
 
                     // Create the frame...
                     JFrame frame = new JFrame("Testing");

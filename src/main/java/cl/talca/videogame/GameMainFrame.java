@@ -2,6 +2,8 @@ package cl.talca.videogame;
 
 import cl.talca.videogame.component.GameKeyListener;
 import cl.talca.videogame.resources.GameStatistics;
+import cl.talca.videogame.service.UserService;
+import cl.talca.videogame.swing.components.LoginDialog;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,17 +17,25 @@ public class GameMainFrame extends JFrame {
 
     public GameMainFrame(String title) throws IOException {
         System.out.println("Initializing game");
+        /*
+        UserService userService = new UserService();
+
+        LoginDialog loginDialog = new LoginDialog(this, userService);
+        loginDialog.setVisible(true);
+        */
+
+
 
         //print number of asteroid delete in the panel
         //GamePanel should have counter for the amount of astereoids destroyed
-        BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("background.png"));
+        BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("img/background.png"));
         GameStatistics gameStatistics = new GameStatistics();
         StatisticsPanel statisticsPanel = new StatisticsPanel(gameStatistics);
         GamePanel myGamePanel = new GamePanel(gameStatistics, statisticsPanel);
 
         this.getContentPane().add(BorderLayout.NORTH, statisticsPanel);
         this.getContentPane().add(BorderLayout.CENTER, myGamePanel);
-        this.getContentPane().add(BorderLayout.BEFORE_LINE_BEGINS, new JLabel(new ImageIcon(img)));
+        //this.getContentPane().add(BorderLayout.BEFORE_LINE_BEGINS, new JLabel(new ImageIcon(img)));
         this.addKeyListener(new GameKeyListener(myGamePanel));
 
         this.setTitle(title);
@@ -35,6 +45,11 @@ public class GameMainFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //this.setContentPane(new JLabel(new ImageIcon(img)));
+    }
+
+
+    private void initGame() {
+
     }
 
 }
