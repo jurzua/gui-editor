@@ -50,8 +50,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         //I would like to modify the background so that when the game is loaded it has something like a spatial background
         setBackground(Color.LIGHT_GRAY);
-        /*BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("background.png"));
-        setBackground(???);*/
+        /*setBackground(???);*/
         this.aircraft = new Aircraft(SCREEN_HIGH -10,
                 this.resourcesManager.get(ResourcesManager.AIRCRAFT_IMG), this);
         shapeList.add(this.aircraft);
