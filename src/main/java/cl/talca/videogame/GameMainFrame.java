@@ -14,18 +14,30 @@ public class GameMainFrame extends JFrame {
 
 
     public GameMainFrame(String title) throws IOException {
+        int i;
+        do{
+            final JFrame parent = new JFrame();
+            i = 1; //this int is only for the condition of finished
+
+            String name = JOptionPane.showInputDialog(parent,
+                    "What is your name?", null);
+            String password = JOptionPane.showInputDialog(parent,
+                    "What is your password?", null);
+            String testing = JOptionPane.showInputDialog(parent, "Test", null, i);
+            i = i++;
+
+        }while(i == 1);
+
         System.out.println("Initializing game");
 
         //print number of asteroid delete in the panel
         //GamePanel should have counter for the amount of astereoids destroyed
-        BufferedImage img = ImageIO.read(getClass().getClassLoader().getResource("background.png"));
         GameStatistics gameStatistics = new GameStatistics();
         StatisticsPanel statisticsPanel = new StatisticsPanel(gameStatistics);
         GamePanel myGamePanel = new GamePanel(gameStatistics, statisticsPanel);
 
         this.getContentPane().add(BorderLayout.NORTH, statisticsPanel);
         this.getContentPane().add(BorderLayout.CENTER, myGamePanel);
-        this.getContentPane().add(BorderLayout.BEFORE_LINE_BEGINS, new JLabel(new ImageIcon(img)));
         this.addKeyListener(new GameKeyListener(myGamePanel));
 
         this.setTitle(title);
@@ -34,7 +46,6 @@ public class GameMainFrame extends JFrame {
         this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //this.setContentPane(new JLabel(new ImageIcon(img)));
     }
 
 }
