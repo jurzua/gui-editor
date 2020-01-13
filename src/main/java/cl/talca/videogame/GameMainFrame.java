@@ -2,13 +2,9 @@ package cl.talca.videogame;
 
 import cl.talca.videogame.component.GameKeyListener;
 import cl.talca.videogame.resources.GameStatistics;
-import cl.talca.videogame.service.UserService;
-import cl.talca.videogame.swing.components.LoginDialog;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 
@@ -24,8 +20,6 @@ public class GameMainFrame extends JFrame {
         LoginDialog loginDialog = new LoginDialog(this, userService);
         loginDialog.setVisible(true);
         */
-
-
 
         //print number of asteroid delete in the panel
         //GamePanel should have counter for the amount of astereoids destroyed

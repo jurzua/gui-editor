@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 
 public class Asteroid extends CollideShape implements ShapeInterface {
 
-    //private static int MAX_DESTRUCTION_ITERATIONS = 50;
     private int speedY;
     private BufferedImage image = null;
     private JPanel observer = null;

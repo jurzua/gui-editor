@@ -12,6 +12,7 @@ public class ResourcesManager {
     public static String BACKGROUND_IMG = "background";
     public static String AIRCRAFT_IMG = "aircraft";
     public static String ASTEROID_IMG = "asteroid";
+    public static String STAR_IMG = "star";
     public static String COIN_TYPE_LIVE = CoinType.LIVE.toString();
     public static String COIN_TYPE_POINTS_25 = CoinType.POINTS_25.toString();
     public static String COIN_TYPE_POINTS_50 = CoinType.POINTS_50.toString();
@@ -31,6 +32,7 @@ public class ResourcesManager {
             this.imageMap.put(COIN_TYPE_POINTS_25, ImageIO.read(getClass().getClassLoader().getResource("img/midcoin.png")));
             this.imageMap.put(COIN_TYPE_POINTS_50, ImageIO.read(getClass().getClassLoader().getResource("img/highcoin.png")));
             this.imageMap.put(BACKGROUND_IMG, ImageIO.read(getClass().getClassLoader().getResource("img/background.png")));
+            this.imageMap.put(STAR_IMG, ImageIO.read(getClass().getClassLoader().getResource("img/star.png")));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
