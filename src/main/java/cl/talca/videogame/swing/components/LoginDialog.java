@@ -61,6 +61,20 @@ public class LoginDialog extends JDialog {
         btnLogin.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
+                //getUsername().equals(lbUsername) && getPassword().equals(lbPassword)
+                if(Login.authenticate(getUsername(), getPassword())){
+                    succeeded = true;
+                    dispose();
+                }else{
+                    JOptionPane.showMessageDialog(LoginDialog.this,
+                            "Invalid username or password",
+                            "Login",
+                            JOptionPane.ERROR_MESSAGE);
+                    // reset username and password
+                    tfUsername.setText("");
+                    pfPassword.setText("");
+                    succeeded = false;
+                }
                 // if login == true, init game
                 // else create popup "username and/or passwrod wrong"
             }
