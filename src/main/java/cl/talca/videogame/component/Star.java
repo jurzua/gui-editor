@@ -11,8 +11,9 @@ public class Star extends CollideShape implements ShapeInterface {
     private BufferedImage image = null;
     private JPanel observer = null;
 
-    public Star(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer) {
-        super(MathUtils.randomNumber(0,screenWide), MathUtils.randomNumber(0,screenHigh), 5, 5, 0, 0, screenHigh);
+    public Star(int screenWide, int screenHigh, int speedY, BufferedImage image, JPanel observer, boolean initTop) {
+        super(MathUtils.randomNumber(0,screenWide), initTop ? 0 : MathUtils.randomNumber(0,screenHigh),
+                5, 5, 0, 0, screenHigh);
         this.image = image;
         this.observer = observer;
         this.speedY = speedY;

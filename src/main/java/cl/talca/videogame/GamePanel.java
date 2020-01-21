@@ -32,8 +32,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     private Timer timer = new Timer(7, this);
     int coinCounter = 0;
-    int asteroid = 5;
-    int star = 30;
+    int asteroidAmount = 5;
+    int starAmount = 30;
 
     public GamePanel(GameStatistics gameStatistics, StatisticsPanel statisticsPanel) throws IOException {
 
@@ -41,11 +41,11 @@ public class GamePanel extends JPanel implements ActionListener {
         this.statisticsPanel = statisticsPanel;
         //I would like to modify the background so that when the game is loaded it has something like a spatial background
         setBackground(Color.BLACK);
-        for(int index=0;index<star;index++){
+        for(int index = 0; index< starAmount; index++){
             shapeList.add(new Star(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
-                    this.resourcesManager.get(ResourcesManager.STAR_IMG),this));
+                    this.resourcesManager.get(ResourcesManager.STAR_IMG),this, false));
         }
-        for(int index=0;index<asteroid;index++){
+        for(int index = 0; index< asteroidAmount; index++){
             shapeList.add(new Asteroid(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                     this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
         }
@@ -136,11 +136,11 @@ public class GamePanel extends JPanel implements ActionListener {
                 shapeList.add(new Asteroid(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
                         this.resourcesManager.get(ResourcesManager.ASTEROID_IMG),this));
             } else if(shapeToDelete instanceof Star){
-                shapeList.add(new NewStars(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
-                        this.resourcesManager.get(ResourcesManager.STAR_IMG),this));
-            } else if(shapeToDelete instanceof NewStars){
-                shapeList.add(new NewStars(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
-                        this.resourcesManager.get(ResourcesManager.STAR_IMG),this));
+                shapeList.add(new Star(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
+                        this.resourcesManager.get(ResourcesManager.STAR_IMG),this, true));
+            } else if(shapeToDelete instanceof Star){
+                shapeList.add(new Star(SCREEN_WIDTH, SCREEN_HIGH, MathUtils.randomNumber(1,2),
+                        this.resourcesManager.get(ResourcesManager.STAR_IMG),this, true));
             }else if(shapeToDelete instanceof Aircraft) {
                 if(this.gameStatistics.hasLives()) {
                     this.aircraft = new Aircraft(SCREEN_HIGH -10,
@@ -183,7 +183,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 .collect(Collectors.toList());
     }
 
-    private List<Star> getStar() {
+    private List<Star> getStarAmount() {
         return this.shapeList.stream()
                 .filter(Star.class::isInstance)
                 .map(Star.class::cast)
